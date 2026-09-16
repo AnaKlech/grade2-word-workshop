@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Six grammar lessons for a second grader, split into three sittings: irregular plurals, past tense verbs, adjectives, adverbs and the letter greeting comma.">
+<style>
+  :root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  body { margin: 0; font-family: system-ui, sans-serif; font-size: 14px; background: #fafaf9; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<title>Second Grade Word Workshop</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Lexend:wght@300;400;500;600&family=Patrick+Hand&display=swap">
+<style>
+  :root {
+    --paper:      #FBF6EC;
+    --card:       #FFFDF8;
+    --ink:        #1F2D3D;
+    --ink-soft:   #5E6E7E;
+    --rule:       #D5E2EC;
+    --edge:       #E9DFCE;
+    --accent:     #D9642C;
+    --accent-soft:#FBE7D7;
+    --good:       #2F7D5F;
+    --good-soft:  #E3F0E9;
+    --oops:       #BE4238;
+    --oops-soft:  #FAE4E1;
+    --shadow:     0 1px 0 rgba(31,45,61,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #151A21;
+      --card:       #1D242E;
+      --ink:        #EDE7DD;
+      --ink-soft:   #A4AFBC;
+      --rule:       #35414F;
+      --edge:       #2B333E;
+      --accent:     #F1894B;
+      --accent-soft:#3A2517;
+      --good:       #74CCA1;
+      --good-soft:  #1B2F26;
+      --oops:       #F08A80;
+      --oops-soft:  #34201E;
+      --shadow:     none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #151A21;
+    --card:       #1D242E;
+    --ink:        #EDE7DD;
+    --ink-soft:   #A4AFBC;
+    --rule:       #35414F;
+    --edge:       #2B333E;
+    --accent:     #F1894B;
+    --accent-soft:#3A2517;
+    --good:       #74CCA1;
+    --good-soft:  #1B2F26;
+    --oops:       #F08A80;
+    --oops-soft:  #34201E;
+    --shadow:     none;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Lexend", "Trebuchet MS", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    padding-inline: 18px;
+    padding-block: 34px 60px;
+  }
+  .page { max-width: 660px; margin-inline: auto; }
+  .wrap { display: flex; flex-direction: column; gap: 30px; }
+
+  /* ---- left rail navigation (wide screens only) ---- */
+  .sidenav { display: none; }
+  .sidenav .navtitle { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; margin: 0 0 10px; }
+  .sidenav ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--edge); }
+  .sidenav a {
+    display: flex; gap: 9px; align-items: baseline;
+    padding: 7px 0 7px 14px; margin-left: -2px;
+    border-left: 2px solid transparent;
+    color: var(--ink-soft); text-decoration: none;
+    font-size: 15px; line-height: 1.35;
+    transition: color .15s, border-color .15s;
+  }
+  .sidenav a b { font-family: "Baloo 2", sans-serif; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .sidenav a:hover { color: var(--ink); }
+  .sidenav a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .sidenav a.active { color: var(--ink); font-weight: 500; border-left-color: var(--accent); }
+  .sidenav > ol > li > a { color: var(--ink); font-weight: 500; }
+  .sidenav ul { list-style: none; margin: 0 0 10px; padding: 0; }
+  .sidenav ul a { font-size: 13.5px; padding-left: 28px; }
+
+  @media (min-width: 1000px) {
+    .page {
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: 196px minmax(0, 660px);
+      gap: 44px;
+      align-items: start;
+    }
+    .sidenav { display: block; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 34px); }
+  }
+
+  h1, h2, h3, .num, .big { font-family: "Baloo 2", "Trebuchet MS", sans-serif; font-weight: 700; }
+  h1 { font-size: clamp(30px, 8vw, 42px); line-height: 1.1; margin: 0 0 8px; text-wrap: balance; }
+  .kicker { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 6px; }
+  .intro { color: var(--ink-soft); margin: 0; max-width: 54ch; }
+
+  /* ---- plan of the three sittings (narrow screens) ---- */
+  .toc { margin-top: 22px; display: flex; flex-direction: column; }
+  .toc a { display: flex; gap: 13px; align-items: baseline; padding: 12px 2px; color: var(--ink); text-decoration: none; border-top: 1px solid var(--edge); }
+  .toc a:last-child { border-bottom: 1px solid var(--edge); }
+  .toc a:hover, .toc a:focus-visible { color: var(--accent); }
+  .toc b { font-family: "Baloo 2", sans-serif; color: var(--accent); min-width: 1.2em; }
+  .toc strong { font-weight: 600; }
+  .toc em { display: block; font-style: normal; font-size: 14px; color: var(--ink-soft); }
+
+  /* ---- sitting banner + stopping point ---- */
+  .sitting {
+    background: var(--ink); color: var(--card);
+    border-radius: 16px; padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 5px;
+    scroll-margin-top: 22px;
+  }
+  .sitting .lbl { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; opacity: .65; }
+  .sitting h2 { font-size: clamp(21px, 5vw, 26px); margin: 0; }
+  .sitting p { margin: 0; font-size: 15.5px; opacity: .88; }
+  .sitting .mins { font-weight: 600; }
+
+  .stop {
+    border: 2px dashed var(--edge); border-radius: 16px;
+    padding: 18px 20px; text-align: center;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stop .big { font-size: 20px; color: var(--accent); }
+  .stop p { margin: 0; font-size: 15px; color: var(--ink-soft); }
+
+  /* ---- lesson block ---- */
+  .lesson {
+    background: var(--card);
+    border: 1px solid var(--edge);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 26px 22px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    scroll-margin-top: 22px;
+  }
+  .head { display: flex; gap: 14px; align-items: center; }
+  .num {
+    flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--accent); color: #FFF9F4;
+    display: grid; place-items: center; font-size: 21px; line-height: 1;
+  }
+  .lesson h2 { font-size: clamp(22px, 5.5vw, 27px); margin: 0; line-height: 1.15; }
+  .lesson p { margin: 0; }
+  .lesson > p + p { margin-top: -6px; }
+
+  .rulebox {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .rulebox .big { font-size: 20px; line-height: 1.3; }
+  .rulebox p { font-size: 16px; }
+
+  /* ---- word lists ---- */
+  .group { display: flex; flex-direction: column; gap: 8px; }
+  .group h3 { font-size: 16px; margin: 0; color: var(--ink-soft); font-weight: 600; }
+  .pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 26px; }
+  .pairs div { display: flex; align-items: baseline; gap: 8px; padding: 6px 0; border-bottom: 1px dashed var(--edge); }
+  .pairs span { color: var(--ink-soft); }
+  .pairs b { font-weight: 500; }
+  .pairs .to { color: var(--accent); font-weight: 600; }
+  .pairs .new { font-weight: 600; }
+
+  /* ---- paper task ---- */
+  .paper {
+    background: repeating-linear-gradient(var(--card) 0 30px, var(--rule) 30px 31px);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 14px 16px 16px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .paper .tag { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .paper ol, .paper ul { margin: 0; padding-left: 20px; }
+  .paper li { margin-bottom: 2px; }
+  .hand {
+    font-family: "Patrick Hand", "Bradley Hand", cursive;
+    font-size: 23px; line-height: 31px; color: var(--ink);
+  }
+  .hand .comma { color: var(--oops); font-weight: 700; }
+
+  /* ---- worked examples ---- */
+  .ex { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .ex li { border-left: 3px solid var(--rule); padding-left: 14px; }
+  .ex .sent { font-size: 17px; }
+  .ex .ask { font-size: 15px; color: var(--ink-soft); }
+  .ex .ask b { color: var(--accent); font-weight: 600; }
+  mark { background: var(--accent-soft); color: var(--ink); padding: 0 3px; border-radius: 3px; font-weight: 600; }
+
+  /* ---- letter mock ---- */
+  .letter { border: 1px solid var(--edge); border-radius: 12px; overflow: hidden; }
+  .letter .row { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 11px 14px; border-bottom: 1px solid var(--edge); align-items: baseline; }
+  .letter .row:last-child { border-bottom: 0; }
+  .letter .row.focus { background: var(--accent-soft); }
+  .letter .lbl { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+  .letter .row.focus .lbl { color: var(--accent); }
+  .letter .txt { font-family: "Patrick Hand", cursive; font-size: 21px; line-height: 1.4; }
+  .letter .txt .comma { color: var(--oops); font-weight: 700; }
+
+  /* ---- quiz ---- */
+  .quizhead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-top: 2px solid var(--edge); padding-top: 16px; }
+  .quizhead h3 { font-size: 19px; margin: 0; }
+  .score { font-size: 14px; color: var(--ink-soft); font-variant-numeric: tabular-nums; margin: 0; }
+  .score.all { color: var(--good); font-weight: 600; }
+  .quiz { display: flex; flex-direction: column; gap: 20px; counter-reset: q; }
+  .q { display: flex; flex-direction: column; gap: 9px; }
+  .q > .qt { display: flex; gap: 9px; }
+  .q > .qt::before { counter-increment: q; content: counter(q) "."; color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; padding-left: 24px; }
+  .opts button {
+    font-family: inherit; font-size: 16px; color: var(--ink);
+    background: var(--paper); border: 1.5px solid var(--edge); border-radius: 10px;
+    padding: 8px 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    transition: border-color .15s, background .15s;
+  }
+  .opts button .ltr { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
+  .opts button:hover:not(:disabled) { border-color: var(--accent); }
+  .opts button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .opts button.right { background: var(--good-soft); border-color: var(--good); color: var(--good); font-weight: 600; }
+  .opts button.right .ltr, .opts button.wrong .ltr { color: inherit; }
+  .opts button.wrong { background: var(--oops-soft); border-color: var(--oops); color: var(--oops); text-decoration: line-through; }
+  .opts button.done:not(.right):not(.wrong) { opacity: .5; }
+  .fb { font-size: 15px; padding-left: 24px; margin: 0; }
+  .fb.yes { color: var(--good); }
+  .fb.no { color: var(--oops); }
+
+  .finale { border-color: var(--accent); border-width: 2px; }
+  .finale .num { background: var(--ink); color: var(--card); }
+  .subhead { font-family: "Baloo 2", sans-serif; font-weight: 600; font-size: 17px; color: var(--accent); margin: 0; }
+  footer { text-align: center; color: var(--ink-soft); font-size: 14px; }
+
+  /* the left rail replaces the in-page list once there is room for it */
+  @media (min-width: 1000px) { .toc { display: none; } }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+
+<div class="page">
+
+<nav class="sidenav" aria-label="Lessons">
+  <p class="navtitle">Three sittings</p>
+  <ol>
+    <li>
+      <a href="#s1"><b>1</b><span>Words that change</span></a>
+      <ul>
+        <li><a href="#l1"><span>Irregular plurals</span></a></li>
+        <li><a href="#l2"><span>Past tense verbs</span></a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#s2"><b>2</b><span>Describing words</span></a>
+      <ul>
+        <li><a href="#l3"><span>Adjectives</span></a></li>
+        <li><a href="#l4"><span>Adverbs</span></a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#s3"><b>3</b><span>Letters &amp; review</span></a>
+      <ul>
+        <li><a href="#l5"><span>Greeting comma</span></a></li>
+        <li><a href="#l6"><span>Big review</span></a></li>
+      </ul>
+    </li>
+  </ol>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <p class="kicker">Grade 2 &middot; English practice</p>
+    <h1>Second Grade Word Workshop</h1>
+    <p class="intro">Six lessons, split into three sittings. Do <b>one sitting a day</b> &mdash; about twenty minutes each. Read the rule in the orange box, write it on your paper, then answer the questions. You can always try again if you get one wrong.</p>
+    <div class="toc">
+      <a href="#s1"><b>1</b><span><strong>Words that change</strong><em>Irregular plurals &middot; Past tense verbs</em></span></a>
+      <a href="#s2"><b>2</b><span><strong>Describing words</strong><em>Adjectives &middot; Adverbs</em></span></a>
+      <a href="#s3"><b>3</b><span><strong>Letters &amp; review</strong><em>Greeting comma &middot; Big review</em></span></a>
+    </div>
+  </header>
+
+  <div class="sitting" id="s1">
+    <span class="lbl">Sitting one of three</span>
+    <h2>Words that change</h2>
+    <p>Two lessons about words that break the usual rules. <span class="mins">About 25 minutes.</span> Get your paper and a pencil before you start.</p>
+  </div>
+
+  <!-- ======================= LESSON 1 ======================= -->
+  <section class="lesson" id="l1">
+    <div class="head"><span class="num">1</span><h2>Irregular plurals</h2></div>
+
+    <div class="rulebox">
+      <span class="big">Plural means <em>more than one</em>.</span>
+      <p>One cat &rarr; two cat<b>s</b>. One book &rarr; five book<b>s</b>. Most of the time you just add <b>s</b>.</p>
+    </div>
+
+    <p>But some words do not want an <b>s</b>. They change in a funny way, or they do not change at all. We call these <b>irregular plurals</b>. There is no trick for them &mdash; you just learn them by heart, like the names of your friends.</p>
+
+    <div class="group">
+      <h3>These words change inside</h3>
+      <div class="pairs">
+        <div><span>one</span><b>man</b><span class="to">&rarr;</span><span class="new">men</span></div>
+        <div><span>one</span><b>woman</b><span class="to">&rarr;</span><span class="new">women</span></div>
+        <div><span>one</span><b>child</b><span class="to">&rarr;</span><span class="new">children</span></div>
+        <div><span>one</span><b>person</b><span class="to">&rarr;</span><span class="new">people</span></div>
+        <div><span>one</span><b>foot</b><span class="to">&rarr;</span><span class="new">feet</span></div>
+        <div><span>one</span><b>tooth</b><span class="to">&rarr;</span><span class="new">teeth</span></div>
+        <div><span>one</span><b>goose</b><span class="to">&rarr;</span><span class="new">geese</span></div>
+        <div><span>one</span><b>mouse</b><span class="to">&rarr;</span><span class="new">mice</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>These words stay exactly the same</h3>
+      <div class="pairs">
+        <div><span>one</span><b>sheep</b><span class="to">&rarr;</span><span class="new">sheep</span></div>
+        <div><span>one</span><b>fish</b><span class="to">&rarr;</span><span class="new">fish</span></div>
+        <div><span>one</span><b>deer</b><span class="to">&rarr;</span><span class="new">deer</span></div>
+      </div>
+    </div>
+
+    <div class="paper">
+      <span class="tag">Write this down</span>
+      <ol>
+        <li>At the top of your paper write: <span class="hand">Plural means more than one.</span></li>
+        <li>Make two columns: <b>One</b> and <b>Many</b>.</li>
+        <li>Copy all 11 word pairs into your columns. Say each pair out loud as you write it &mdash; &ldquo;one foot, two feet.&rdquo;</li>
+        <li>Put a star next to the three words that did not change.</li>
+      </ol>
+    </div>
+
+    <div class="quizhead"><h3>Now you try &mdash; 11 questions</h3><p class="score" data-score="q1"></p></div>
+    <div class="quiz" data-quiz="q1"></div>
+  </section>
+
+  <!-- ======================= LESSON 2 ======================= -->
+  <section class="lesson" id="l2">
+    <div class="head"><span class="num">2</span><h2>Past tense verbs</h2></div>
+
+    <div class="rulebox">
+      <span class="big">Past tense means it <em>already happened</em>.</span>
+      <p>Today I play &rarr; yesterday I play<b>ed</b>. Today I jump &rarr; yesterday I jump<b>ed</b>. Most of the time you just add <b>ed</b>.</p>
+    </div>
+
+    <p>But some verbs are <b>irregular</b>. They do not take <b>ed</b> &mdash; they turn into a whole new word. You cannot say &ldquo;I swimmed.&rdquo; You have to say &ldquo;I swam.&rdquo; Here are 14 of them to keep in your head.</p>
+
+    <div class="group">
+      <h3>Group A &mdash; only the middle sound changes</h3>
+      <div class="pairs">
+        <div><b>swim</b><span class="to">&rarr;</span><span class="new">swam</span></div>
+        <div><b>run</b><span class="to">&rarr;</span><span class="new">ran</span></div>
+        <div><b>drink</b><span class="to">&rarr;</span><span class="new">drank</span></div>
+        <div><b>sing</b><span class="to">&rarr;</span><span class="new">sang</span></div>
+        <div><b>give</b><span class="to">&rarr;</span><span class="new">gave</span></div>
+        <div><b>take</b><span class="to">&rarr;</span><span class="new">took</span></div>
+        <div><b>write</b><span class="to">&rarr;</span><span class="new">wrote</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>Group B &mdash; the whole word changes</h3>
+      <div class="pairs">
+        <div><b>catch</b><span class="to">&rarr;</span><span class="new">caught</span></div>
+        <div><b>throw</b><span class="to">&rarr;</span><span class="new">threw</span></div>
+        <div><b>fly</b><span class="to">&rarr;</span><span class="new">flew</span></div>
+        <div><b>see</b><span class="to">&rarr;</span><span class="new">saw</span></div>
+        <div><b>eat</b><span class="to">&rarr;</span><span class="new">ate</span></div>
+        <div><b>sleep</b><span class="to">&rarr;</span><span class="new">slept</span></div>
+        <div><b>go</b><span class="to">&rarr;</span><span class="new">went</span></div>
+      </div>
+    </div>
+
+    <div class="paper">
+      <span class="tag">Write this down</span>
+      <ol>
+        <li>At the top of your paper write: <span class="hand">Past tense means it already happened.</span></li>
+        <li>Make two columns &mdash; two lists side by side: <b>Today</b> and <b>Yesterday</b>.</li>
+        <li>Copy <b>Group A</b> into your columns. Then stand up and stretch.</li>
+        <li>Now copy <b>Group B</b>.</li>
+        <li>Pick your three favourite verbs and write a sentence for each that starts with <span class="hand">Yesterday I&hellip;</span></li>
+      </ol>
+    </div>
+
+    <div class="quizhead"><h3>Now you try &mdash; 14 questions</h3><p class="score" data-score="q2"></p></div>
+    <div class="quiz" data-quiz="q2"></div>
+  </section>
+
+  <div class="stop">
+    <span class="big">Stop here for today.</span>
+    <p>That is sitting one finished. Keep your paper somewhere safe &mdash; you will use it again tomorrow.</p>
+  </div>
+
+  <div class="sitting" id="s2">
+    <span class="lbl">Sitting two of three</span>
+    <h2>Describing words</h2>
+    <p>Two lessons about words that tell us more. <span class="mins">About 20 minutes.</span> Not much writing today &mdash; more thinking.</p>
+  </div>
+
+  <!-- ======================= LESSON 3 ======================= -->
+  <section class="lesson" id="l3">
+    <div class="head"><span class="num">3</span><h2>Adjectives</h2></div>
+
+    <div class="rulebox">
+      <span class="big">An adjective describes a noun.</span>
+      <p>A noun is a person, a place, or a thing. The adjective tells you what that noun is like.</p>
+    </div>
+
+    <p>Here is your secret tool. To find the adjective, point at the noun and ask:</p>
+
+    <div class="rulebox">
+      <span class="big">&ldquo;What kind?&rdquo;</span>
+      <p>The word that answers your question is the adjective. (Sometimes you can also ask <b>How many?</b> or <b>Which one?</b>)</p>
+    </div>
+
+    <p>Watch the tool work:</p>
+
+    <ul class="ex">
+      <li>
+        <p class="sent">The <mark>red</mark> balloon flew away.</p>
+        <p class="ask"><b>What kind of</b> balloon? &rarr; a <b>red</b> one. So <b>red</b> is the adjective.</p>
+      </li>
+      <li>
+        <p class="sent">I have a <mark>fluffy</mark> cat.</p>
+        <p class="ask"><b>What kind of</b> cat? &rarr; a <b>fluffy</b> one. So <b>fluffy</b> is the adjective.</p>
+      </li>
+      <li>
+        <p class="sent">She read a <mark>funny</mark> book.</p>
+        <p class="ask"><b>What kind of</b> book? &rarr; a <b>funny</b> one. So <b>funny</b> is the adjective.</p>
+      </li>
+      <li>
+        <p class="sent">My brother is <mark>tall</mark>.</p>
+        <p class="ask"><b>What kind of</b> brother? &rarr; a <b>tall</b> one. So <b>tall</b> is the adjective.</p>
+      </li>
+      <li>
+        <p class="sent"><mark>Three</mark> <mark>noisy</mark> birds sat on the fence.</p>
+        <p class="ask"><b>What kind of</b> birds? &rarr; <b>noisy</b>. <b>How many</b> birds? &rarr; <b>three</b>. This sentence has two adjectives!</p>
+      </li>
+    </ul>
+
+    <div class="paper">
+      <span class="tag">Write this down</span>
+      <ol>
+        <li>Write: <span class="hand">An adjective describes a noun. It tells what kind.</span></li>
+        <li>Under it, draw a box and write your tool inside: <span class="hand">My question: What kind?</span></li>
+        <li>Copy two of the examples above and circle the adjective in each one.</li>
+      </ol>
+    </div>
+
+    <div class="quizhead"><h3>Find the adjective &mdash; 8 questions</h3><p class="score" data-score="q3"></p></div>
+    <div class="quiz" data-quiz="q3"></div>
+  </section>
+
+  <!-- ======================= LESSON 4 ======================= -->
+  <section class="lesson" id="l4">
+    <div class="head"><span class="num">4</span><h2>Adverbs</h2></div>
+
+    <div class="rulebox">
+      <span class="big">An adverb describes a verb.</span>
+      <p>A verb is an action word &mdash; run, sing, eat, walk. The adverb tells you more about that action. Lots of adverbs end in <b>&ndash;ly</b>.</p>
+    </div>
+
+    <p>Here is your tool for adverbs. Point at the action and ask:</p>
+
+    <div class="rulebox">
+      <span class="big">&ldquo;How?&rdquo;</span>
+      <p>The word that answers your question is the adverb. It can sit at the front, in the middle, or at the end of the sentence &mdash; so find the action word first, then ask it <b>How?</b> Never just grab the last word. (Sometimes you can also ask <b>When?</b> or <b>Where?</b>)</p>
+    </div>
+
+    <p>Watch the tool work:</p>
+
+    <ul class="ex">
+      <li>
+        <p class="sent">The turtle walked <mark>slowly</mark>.</p>
+        <p class="ask"><b>How</b> did the turtle walk? &rarr; <b>slowly</b>. So <b>slowly</b> is the adverb.</p>
+      </li>
+      <li>
+        <p class="sent">My dad sings <mark>loudly</mark> in the car.</p>
+        <p class="ask"><b>How</b> does he sing? &rarr; <b>loudly</b>. So <b>loudly</b> is the adverb.</p>
+      </li>
+      <li>
+        <p class="sent">He <mark>quietly</mark> closed the door.</p>
+        <p class="ask"><b>How</b> did he close it? &rarr; <b>quietly</b>. So <b>quietly</b> is the adverb.</p>
+      </li>
+      <li>
+        <p class="sent"><mark>Slowly</mark> the snail climbed up the wall.</p>
+        <p class="ask"><b>How</b> did the snail climb? &rarr; <b>slowly</b>. So <b>slowly</b> is the adverb.</p>
+      </li>
+      <li>
+        <p class="sent">We will go to the zoo <mark>tomorrow</mark>.</p>
+        <p class="ask"><b>When</b> will we go? &rarr; <b>tomorrow</b>. This adverb tells the time.</p>
+      </li>
+      <li>
+        <p class="sent">The dog sleeps <mark>outside</mark> every night.</p>
+        <p class="ask"><b>Where</b> does the dog sleep? &rarr; <b>outside</b>. This adverb tells the place.</p>
+      </li>
+    </ul>
+
+    <div class="rulebox">
+      <span class="big">Careful! Do not mix them up.</span>
+      <p>The <b>quick</b> fox ran <b>quickly</b>. <b>Quick</b> tells about the fox &mdash; a noun, so it is an adjective. <b>Quickly</b> tells about the running &mdash; a verb, so it is an adverb.</p>
+    </div>
+
+    <div class="paper">
+      <span class="tag">Write this down</span>
+      <ol>
+        <li>Write: <span class="hand">An adverb describes a verb. It tells how.</span></li>
+        <li>Draw a box and write your tool inside: <span class="hand">My question: How?</span></li>
+        <li>Copy two of the examples above and circle the adverb in each one.</li>
+        <li>At the bottom write the careful part: <span class="hand">Adjective &rarr; noun. Adverb &rarr; verb.</span></li>
+      </ol>
+    </div>
+
+    <div class="quizhead"><h3>Find the adverb &mdash; 8 questions</h3><p class="score" data-score="q4"></p></div>
+    <div class="quiz" data-quiz="q4"></div>
+  </section>
+
+  <div class="stop">
+    <span class="big">Stop here for today.</span>
+    <p>That is sitting two finished. Tomorrow is the last one &mdash; a short lesson and then the big review.</p>
+  </div>
+
+  <div class="sitting" id="s3">
+    <span class="lbl">Sitting three of three</span>
+    <h2>Letters &amp; review</h2>
+    <p>One short lesson, then four questions from every topic. <span class="mins">About 25 minutes.</span> Keep your paper next to you &mdash; you are allowed to look at it in the review.</p>
+  </div>
+
+  <!-- ======================= LESSON 5 ======================= -->
+  <section class="lesson" id="l5">
+    <div class="head"><span class="num">5</span><h2>The comma in a letter greeting</h2></div>
+
+    <p>When you write a letter, it has parts that always go in the same order. Here is a whole letter. Look closely at the very first line.</p>
+
+    <div class="letter">
+      <div class="row focus">
+        <span class="lbl">Greeting</span>
+        <span class="txt">Dear Grandma<span class="comma">,</span></span>
+      </div>
+      <div class="row">
+        <span class="lbl">Body</span>
+        <span class="txt">Thank you for the blue socks. I wore them to school and my teacher liked them.</span>
+      </div>
+      <div class="row">
+        <span class="lbl">Closing</span>
+        <span class="txt">Love<span class="comma">,</span></span>
+      </div>
+      <div class="row">
+        <span class="lbl">Your name</span>
+        <span class="txt">Mila</span>
+      </div>
+    </div>
+
+    <div class="rulebox">
+      <span class="big">Greeting = <em>Dear</em> + name + <em>comma</em>.</span>
+      <p>The comma goes <b>after the name</b>, never after the word <em>Dear</em>. The name always starts with a capital letter.</p>
+    </div>
+
+    <p>Good greetings look like this:</p>
+    <p class="hand">Dear Mom<span class="comma">,</span> &nbsp; Dear Mr. Lee<span class="comma">,</span> &nbsp; Dear Anna<span class="comma">,</span> &nbsp; Dear Uncle Tom<span class="comma">,</span></p>
+    <p>The closing at the end gets a comma too &mdash; <span class="hand">Love<span class="comma">,</span></span> or <span class="hand">Your friend<span class="comma">,</span></span> &mdash; but today we are practising the beginning.</p>
+
+    <div class="paper">
+      <span class="tag">Write this down</span>
+      <ol>
+        <li>Write this greeting on your paper and make the comma big and dark: <span class="hand">Dear Grandma<span class="comma">,</span></span></li>
+        <li>Under it write: <span class="hand">The comma goes after the name.</span></li>
+        <li>Now write three greetings for three real people you know.</li>
+      </ol>
+    </div>
+
+    <div class="quizhead"><h3>Now you try &mdash; 5 questions</h3><p class="score" data-score="q5"></p></div>
+    <div class="quiz" data-quiz="q5"></div>
+  </section>
+
+  <!-- ======================= LESSON 6 ======================= -->
+  <section class="lesson finale" id="l6">
+    <div class="head"><span class="num">6</span><h2>Big review</h2></div>
+    <p>Four questions from every lesson. Do this one without looking back &mdash; but your paper is allowed!</p>
+
+    <p class="subhead">Irregular plurals</p>
+    <div class="quiz" data-quiz="r1"></div>
+
+    <p class="subhead">Past tense</p>
+    <div class="quiz" data-quiz="r2"></div>
+
+    <p class="subhead">Adjectives</p>
+    <div class="quiz" data-quiz="r3"></div>
+
+    <p class="subhead">Adverbs</p>
+    <div class="quiz" data-quiz="r4"></div>
+
+    <p class="subhead">Letter greeting comma</p>
+    <div class="quiz" data-quiz="r5"></div>
+
+    <div class="quizhead"><h3>Review total</h3><p class="score" data-score="rall"></p></div>
+  </section>
+
+  <div class="stop">
+    <span class="big">All three sittings finished!</span>
+    <p>You learned 11 tricky plurals, 14 past tense verbs, adjectives, adverbs and the greeting comma. Read your paper out loud to someone at home.</p>
+  </div>
+
+  <footer>Read it, write it, say it out loud. That is how words stick.</footer>
+</div>
+</div>
+
+<script>
+  const QUIZ = {
+    q1: [
+      ["Which is the correct plural of <b>man</b>?", ["men","mans","mens"], 0, "One man, two men."],
+      ["Which is the correct plural of <b>woman</b>?", ["womans","womens","women"], 2, "One woman, two women. The <em>a</em> turns into an <em>e</em>."],
+      ["Which is the correct plural of <b>child</b>?", ["children","childs","childrens"], 0, "One child, two children."],
+      ["Ten ___ are waiting for the bus.", ["persons","people","peoples"], 1, "More than one person = people."],
+      ["Which is the correct plural of <b>foot</b>?", ["foots","feets","feet"], 2, "One foot, two feet. No <em>s</em> at all."],
+      ["Which is the correct plural of <b>tooth</b>?", ["teeth","tooths","toothes"], 0, "One tooth, two teeth."],
+      ["Which is the correct plural of <b>goose</b>?", ["gooses","geese","goosen"], 1, "One goose, two geese &mdash; just like tooth and teeth."],
+      ["Which is the correct plural of <b>mouse</b>?", ["mouses","mices","mice"], 2, "One mouse, two mice."],
+      ["Which is the correct plural of <b>sheep</b>?", ["sheep","sheeps","sheepes"], 0, "Sheep does not change at all."],
+      ["I caught three ___ in the lake.", ["fishes","fish","fishs"], 1, "Fish stays fish, even when there are lots."],
+      ["Which is the correct plural of <b>deer</b>?", ["deers","deer","deeren"], 1, "Deer does not change either."]
+    ],
+    q2: [
+      ["Yesterday I ___ the ball with one hand.", ["caught","catched","catchd"], 0, "catch &rarr; caught."],
+      ["She ___ the stick to her dog.", ["throwed","threw","throwing"], 1, "throw &rarr; threw."],
+      ["The bird ___ over our house.", ["flied","flyed","flew"], 2, "fly &rarr; flew."],
+      ["Last summer we ___ in the lake.", ["swam","swimmed","swimed"], 0, "swim &rarr; swam."],
+      ["He ___ all the way to school.", ["runned","ran","runed"], 1, "run &rarr; ran."],
+      ["I ___ all of my dinner.", ["eated","eat","ate"], 2, "eat &rarr; ate."],
+      ["The cat ___ her milk.", ["drank","drinked","drinking"], 0, "drink &rarr; drank."],
+      ["We ___ a happy song at the party.", ["singed","sang","songed"], 1, "sing &rarr; sang."],
+      ["She ___ her name on the paper.", ["writed","writing","wrote"], 2, "write &rarr; wrote."],
+      ["I ___ my lunch to school today.", ["took","taked","taking"], 0, "take &rarr; took."],
+      ["He ___ me a new pencil.", ["gived","gave","giving"], 1, "give &rarr; gave."],
+      ["We ___ a very big dog in the park.", ["seed","seeing","saw"], 2, "see &rarr; saw."],
+      ["They ___ to the park after lunch.", ["went","goed","going"], 0, "go &rarr; went."],
+      ["I ___ for ten whole hours.", ["sleeped","slept","sleeping"], 1, "sleep &rarr; slept."]
+    ],
+    q3: [
+      ["The old truck stopped. Which word is the adjective?", ["old","truck","stopped"], 0, "What kind of truck? An old one."],
+      ["I ate a sweet apple. Which word is the adjective?", ["ate","sweet","apple"], 1, "What kind of apple? A sweet one."],
+      ["My room is messy. Which word is the adjective?", ["room","is","messy"], 2, "What kind of room? A messy one."],
+      ["A loud bell rang. Which word is the adjective?", ["loud","bell","rang"], 0, "What kind of bell? A loud one."],
+      ["She has curly hair. Which word is the adjective?", ["has","curly","hair"], 1, "What kind of hair? Curly hair."],
+      ["The hot soup smells good. Which word is the adjective?", ["hot","soup","smells"], 0, "What kind of soup? Hot soup."],
+      ["We saw five ducks. Which word is the adjective?", ["saw","five","ducks"], 1, "How many ducks? Five. <em>How many</em> is an adjective question too."],
+      ["The soft blanket is mine. Which word is the adjective?", ["soft","blanket","mine"], 0, "What kind of blanket? A soft one."]
+    ],
+    q4: [
+      ["Slowly the turtle walked across the road. Which word is the adverb?", ["turtle","slowly","walked"], 1, "How did the turtle walk? Slowly."],
+      ["She quickly ate her lunch. Which word is the adverb?", ["ate","lunch","quickly"], 2, "How did she eat? Quickly."],
+      ["The baby cried softly in her crib. Which word is the adverb?", ["softly","cried","crib"], 0, "How did the baby cry? Softly."],
+      ["He quietly shut the door. Which word is the adverb?", ["shut","door","quietly"], 2, "How did he shut the door? Quietly."],
+      ["My dad sings loudly in the car. Which word is the adverb?", ["sings","car","loudly"], 2, "How does he sing? Loudly."],
+      ["Soon we will leave for school. Which word is the adverb?", ["leave","soon","school"], 1, "When will we leave? Soon."],
+      ["The dog sleeps outside every night. Which word is the adverb?", ["outside","dog","night"], 0, "Where does the dog sleep? Outside."],
+      ["The quick fox ran quickly to its den. Which word is the adverb?", ["quickly","quick","fox"], 0, "Quickly tells about the running &mdash; a verb. Quick tells about the fox &mdash; a noun, so that one is an adjective."]
+    ],
+    q5: [
+      ["Which greeting is written correctly?", ["Dear Grandma,","Dear Grandma","Dear, Grandma"], 0, "Dear + name + comma."],
+      ["Where does the comma go in <b>Dear Mom</b>?", ["after Dear","after Mom","nowhere"], 1, "The comma always goes after the name."],
+      ["<b>Dear Mr. Lee</b> &mdash; what is missing?", ["nothing","a comma after Dear","a comma after Lee"], 2, "It needs a comma after the name: Dear Mr. Lee,"],
+      ["Which one is correct?", ["Dear, Anna","dear anna,","Dear Anna,"], 2, "Capital D, capital A, and the comma after the name."],
+      ["The greeting goes at the ___ of a letter.", ["end","beginning","middle"], 1, "The greeting is the first line. The closing goes at the end."]
+    ],
+    r1: [
+      ["One mouse, two ___", ["mice","mouses","mices"], 0, "mouse &rarr; mice."],
+      ["One foot, two ___", ["foots","feets","feet"], 2, "foot &rarr; feet."],
+      ["The dentist counted all of my ___.", ["tooths","teeth","toothes"], 1, "tooth &rarr; teeth."],
+      ["Five ___ are standing in the field.", ["sheep","sheeps","sheepes"], 0, "sheep stays sheep."]
+    ],
+    r2: [
+      ["My kite ___ very high yesterday.", ["flied","flew","flyed"], 1, "fly &rarr; flew."],
+      ["Last week we ___ in the big pool.", ["swam","swimmed","swimed"], 0, "swim &rarr; swam."],
+      ["He ___ the ball before it hit the ground.", ["catched","catchd","caught"], 2, "catch &rarr; caught."],
+      ["I ___ my coat onto the bed.", ["throwed","threw","throwing"], 1, "throw &rarr; threw."]
+    ],
+    r3: [
+      ["A tiny ant crawled on my hand. Which word is the adjective?", ["tiny","ant","crawled"], 0, "What kind of ant? A tiny one."],
+      ["My soup is warm. Which word is the adjective?", ["soup","is","warm"], 2, "What kind of soup? Warm soup."],
+      ["Which question helps you find an adjective?", ["How?","What kind?","When?"], 1, "Ask <em>What kind?</em> about the noun."],
+      ["An adjective describes a ___.", ["verb","noun","comma"], 1, "Adjective &rarr; noun."]
+    ],
+    r4: [
+      ["Slowly the train moved out of the station. Which word is the adverb?", ["train","slowly","moved"], 1, "How did the train move? Slowly."],
+      ["She spoke kindly to me. Which word is the adverb?", ["kindly","spoke","me"], 0, "How did she speak? Kindly."],
+      ["Which question helps you find an adverb?", ["What kind?","How?","Which one?"], 1, "Ask <em>How?</em> about the verb."],
+      ["An adverb describes a ___.", ["verb","noun","name"], 0, "Adverb &rarr; verb."]
+    ],
+    r5: [
+      ["Which greeting is correct?", ["Dear, Sam","Dear Sam,","Dear Sam"], 1, "Dear + name + comma."],
+      ["<b>Dear Aunt Kate</b> ___ &mdash; what goes here?", ["a comma","a period","a question mark"], 0, "A greeting ends with a comma."],
+      ["Where is the greeting in a letter?", ["the middle","the end","the beginning"], 2, "It is the very first line."],
+      ["Which one has the comma in the right place?", ["Dear, Grandpa","Dear Grand,pa","Dear Grandpa,"], 2, "After the whole name."]
+    ]
+  };
+
+  const LETTERS = ["A", "B", "C"];
+  const CHEERS = ["Yes!", "Correct!", "That's it!", "Nice work!", "Exactly!"];
+  const NUDGES = ["Not quite &mdash; have another go.", "Close! Try again.", "Nope &mdash; check your paper and try again."];
+  const reviewSets = ["r1", "r2", "r3", "r4", "r5"];
+  const reviewState = {};
+
+  function updateScore(key, done, total) {
+    document.querySelectorAll('[data-score="' + key + '"]').forEach(function (el) {
+      el.textContent = done + " of " + total + " correct";
+      el.classList.toggle("all", done === total && total > 0);
+    });
+  }
+
+  function buildQuiz(host) {
+    const key = host.dataset.quiz;
+    const items = QUIZ[key];
+    if (!items) return;
+    let done = 0;
+    updateScore(key, 0, items.length);
+
+    items.forEach(function (item, qi) {
+      const text = item[0], opts = item[1], answer = item[2], why = item[3];
+
+      const wrap = document.createElement("div");
+      wrap.className = "q";
+
+      const qt = document.createElement("p");
+      qt.className = "qt";
+      const span = document.createElement("span");
+      span.innerHTML = text;
+      qt.appendChild(span);
+      wrap.appendChild(qt);
+
+      const row = document.createElement("div");
+      row.className = "opts";
+
+      const fb = document.createElement("p");
+      fb.className = "fb";
+      fb.hidden = true;
+
+      opts.forEach(function (opt, oi) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.id = key + "-" + qi + "-" + oi;
+        btn.innerHTML = '<span class="ltr">' + LETTERS[oi] + '</span>' + opt;
+        btn.addEventListener("click", function () {
+          if (row.dataset.solved === "yes") return;
+          if (oi === answer) {
+            row.dataset.solved = "yes";
+            btn.classList.add("right");
+            row.querySelectorAll("button").forEach(function (b) {
+              b.classList.add("done");
+              b.disabled = true;
+            });
+            btn.disabled = false;
+            fb.className = "fb yes";
+            fb.innerHTML = CHEERS[qi % CHEERS.length] + " " + why;
+            fb.hidden = false;
+            done += 1;
+            updateScore(key, done, items.length);
+            if (reviewSets.indexOf(key) > -1) {
+              reviewState[key] = done;
+              let sum = 0, all = 0;
+              reviewSets.forEach(function (k) {
+                sum += reviewState[k] || 0;
+                all += QUIZ[k].length;
+              });
+              updateScore("rall", sum, all);
+            }
+          } else {
+            btn.classList.add("wrong");
+            btn.disabled = true;
+            fb.className = "fb no";
+            fb.innerHTML = NUDGES[qi % NUDGES.length];
+            fb.hidden = false;
+          }
+        });
+        row.appendChild(btn);
+      });
+
+      wrap.appendChild(row);
+      wrap.appendChild(fb);
+      host.appendChild(wrap);
+    });
+  }
+
+  document.querySelectorAll("[data-quiz]").forEach(buildQuiz);
+
+  // highlight the lesson you are reading in the left rail
+  const navLinks = Array.prototype.slice.call(document.querySelectorAll(".sidenav a"));
+  const navTargets = navLinks.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+  let pending = 0;
+  function syncNav() {
+    pending = 0;
+    let current = 0;
+    navTargets.forEach(function (sec, i) {
+      if (sec && sec.getBoundingClientRect().top <= 140) current = i;
+    });
+    navLinks.forEach(function (a, i) { a.classList.toggle("active", i === current); });
+  }
+  window.addEventListener("scroll", function () {
+    if (!pending) pending = requestAnimationFrame(syncNav);
+  }, { passive: true });
+  syncNav();
+
+  updateScore("rall", 0, reviewSets.reduce(function (n, k) { return n + QUIZ[k].length; }, 0));
+</script>
+
+</body>
+</html>
