@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Six grammar lessons for a second grader, split into three sittings: irregular plurals, past tense verbs, adjectives, adverbs and the letter greeting comma.">
+<meta name="description" content="Seven grammar lessons for a second grader in three sittings: irregular plurals, past tense verbs, adjectives, adverbs, compound words and the letter greeting comma. Every word is read aloud on tap.">
 <style>
   :root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
   body { margin: 0; font-family: system-ui, sans-serif; font-size: 14px; background: #fafaf9; }
@@ -179,6 +179,7 @@
   .pairs b { font-weight: 500; }
   .pairs .to { color: var(--accent); font-weight: 600; }
   .pairs .new { font-weight: 600; }
+  .pairs.wide { grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); }
 
   /* ---- paper task ---- */
   .paper {
@@ -250,6 +251,29 @@
   /* the left rail replaces the in-page list once there is room for it */
   @media (min-width: 1000px) { .toc { display: none; } }
 
+
+  /* ---- read-aloud ---- */
+  .fb[hidden] { display: none; }
+  .speak {
+    flex: 0 0 auto; width: 30px; height: 30px; padding: 0; margin: 0;
+    border-radius: 50%; border: 1.5px solid var(--edge); background: var(--paper);
+    color: var(--accent); cursor: pointer; vertical-align: middle;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .speak svg { width: 15px; height: 15px; display: block; fill: currentColor; }
+  .speak:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .speak:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .speak.playing { background: var(--accent); border-color: var(--accent); color: #FFF9F4; }
+  .rulebox .speak, .paper .speak, .ex li .speak { align-self: flex-start; margin-top: 4px; }
+  .ex li .speak { display: inline-flex; margin-top: 6px; }
+  .audionote {
+    margin-top: 14px; padding: 11px 14px; border-radius: 12px;
+    background: var(--oops-soft); border: 1px solid var(--oops);
+    color: var(--oops); font-size: 14.5px;
+  }
+  .hear { cursor: pointer; }
+  .hear:hover { background: var(--accent-soft); }
+
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } html { scroll-behavior: auto; } }
 </style>
@@ -267,17 +291,18 @@
       </ul>
     </li>
     <li>
-      <a href="#s2"><b>2</b><span>Describing words</span></a>
+      <a href="#s2"><b>2</b><span>Describing &amp; building</span></a>
       <ul>
         <li><a href="#l3"><span>Adjectives</span></a></li>
         <li><a href="#l4"><span>Adverbs</span></a></li>
+        <li><a href="#l5"><span>Compound words</span></a></li>
       </ul>
     </li>
     <li>
       <a href="#s3"><b>3</b><span>Letters &amp; review</span></a>
       <ul>
-        <li><a href="#l5"><span>Greeting comma</span></a></li>
-        <li><a href="#l6"><span>Big review</span></a></li>
+        <li><a href="#l6"><span>Greeting comma</span></a></li>
+        <li><a href="#l7"><span>Big review</span></a></li>
       </ul>
     </li>
   </ol>
@@ -288,13 +313,20 @@
   <header>
     <p class="kicker">Grade 2 &middot; English practice</p>
     <h1>Second Grade Word Workshop</h1>
-    <p class="intro">Six lessons, split into three sittings. Do <b>one sitting a day</b> &mdash; about twenty minutes each. Read the rule in the orange box, write it on your paper, then answer the questions. You can always try again if you get one wrong.</p>
+    <p class="intro">Seven lessons, split into three sittings. Do <b>one sitting a day</b> &mdash; about half an hour each. Read the rule in the orange box, write it on your paper, then answer the questions. You can always try again if you get one wrong.</p>
     <div class="toc">
       <a href="#s1"><b>1</b><span><strong>Words that change</strong><em>Irregular plurals &middot; Past tense verbs</em></span></a>
-      <a href="#s2"><b>2</b><span><strong>Describing words</strong><em>Adjectives &middot; Adverbs</em></span></a>
+      <a href="#s2"><b>2</b><span><strong>Describing &amp; building words</strong><em>Adjectives &middot; Adverbs &middot; Compound words</em></span></a>
       <a href="#s3"><b>3</b><span><strong>Letters &amp; review</strong><em>Greeting comma &middot; Big review</em></span></a>
     </div>
   </header>
+
+  <noscript>
+    <div class="stop">
+      <span class="big">Turn on JavaScript for the best experience.</span>
+      <p>All the lessons and questions below still work &mdash; but the buttons will not check your answers or read the words out loud.</p>
+    </div>
+  </noscript>
 
   <div class="sitting" id="s1">
     <span class="lbl">Sitting one of three</span>
@@ -346,8 +378,108 @@
       </ol>
     </div>
 
-    <div class="quizhead"><h3>Now you try &mdash; 11 questions</h3><p class="score" data-score="q1"></p></div>
-    <div class="quiz" data-quiz="q1"></div>
+    <div class="quizhead"><h3>Now you try &mdash; 11 questions</h3><p class="score" data-score="q1">0 of 11 correct</p></div>
+    <div class="quiz" data-quiz="q1">
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>man</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="One man, two men.">
+          <button type="button" id="q1-0-0" data-text="men"><span class="ltr">A</span>men</button>
+          <button type="button" id="q1-0-1" data-text="mans"><span class="ltr">B</span>mans</button>
+          <button type="button" id="q1-0-2" data-text="mens"><span class="ltr">C</span>mens</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>woman</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="One woman, two women. The <em>a</em> turns into an <em>e</em>.">
+          <button type="button" id="q1-1-0" data-text="womans"><span class="ltr">A</span>womans</button>
+          <button type="button" id="q1-1-1" data-text="womens"><span class="ltr">B</span>womens</button>
+          <button type="button" id="q1-1-2" data-text="women"><span class="ltr">C</span>women</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>child</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="One child, two children.">
+          <button type="button" id="q1-2-0" data-text="children"><span class="ltr">A</span>children</button>
+          <button type="button" id="q1-2-1" data-text="childs"><span class="ltr">B</span>childs</button>
+          <button type="button" id="q1-2-2" data-text="childrens"><span class="ltr">C</span>childrens</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Ten ___ are waiting for the bus.</span></p>
+        <div class="opts" data-answer="1" data-why="More than one person = people.">
+          <button type="button" id="q1-3-0" data-text="persons"><span class="ltr">A</span>persons</button>
+          <button type="button" id="q1-3-1" data-text="people"><span class="ltr">B</span>people</button>
+          <button type="button" id="q1-3-2" data-text="peoples"><span class="ltr">C</span>peoples</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>foot</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="One foot, two feet. No <em>s</em> at all.">
+          <button type="button" id="q1-4-0" data-text="foots"><span class="ltr">A</span>foots</button>
+          <button type="button" id="q1-4-1" data-text="feets"><span class="ltr">B</span>feets</button>
+          <button type="button" id="q1-4-2" data-text="feet"><span class="ltr">C</span>feet</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>tooth</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="One tooth, two teeth.">
+          <button type="button" id="q1-5-0" data-text="teeth"><span class="ltr">A</span>teeth</button>
+          <button type="button" id="q1-5-1" data-text="tooths"><span class="ltr">B</span>tooths</button>
+          <button type="button" id="q1-5-2" data-text="toothes"><span class="ltr">C</span>toothes</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>goose</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="One goose, two geese &amp;mdash; just like tooth and teeth.">
+          <button type="button" id="q1-6-0" data-text="gooses"><span class="ltr">A</span>gooses</button>
+          <button type="button" id="q1-6-1" data-text="geese"><span class="ltr">B</span>geese</button>
+          <button type="button" id="q1-6-2" data-text="goosen"><span class="ltr">C</span>goosen</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>mouse</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="One mouse, two mice.">
+          <button type="button" id="q1-7-0" data-text="mouses"><span class="ltr">A</span>mouses</button>
+          <button type="button" id="q1-7-1" data-text="mices"><span class="ltr">B</span>mices</button>
+          <button type="button" id="q1-7-2" data-text="mice"><span class="ltr">C</span>mice</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>sheep</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="Sheep does not change at all.">
+          <button type="button" id="q1-8-0" data-text="sheep"><span class="ltr">A</span>sheep</button>
+          <button type="button" id="q1-8-1" data-text="sheeps"><span class="ltr">B</span>sheeps</button>
+          <button type="button" id="q1-8-2" data-text="sheepes"><span class="ltr">C</span>sheepes</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>I caught three ___ in the lake.</span></p>
+        <div class="opts" data-answer="1" data-why="Fish stays fish, even when there are lots.">
+          <button type="button" id="q1-9-0" data-text="fishes"><span class="ltr">A</span>fishes</button>
+          <button type="button" id="q1-9-1" data-text="fish"><span class="ltr">B</span>fish</button>
+          <button type="button" id="q1-9-2" data-text="fishs"><span class="ltr">C</span>fishs</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which is the correct plural of <b>deer</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="Deer does not change either.">
+          <button type="button" id="q1-10-0" data-text="deers"><span class="ltr">A</span>deers</button>
+          <button type="button" id="q1-10-1" data-text="deer"><span class="ltr">B</span>deer</button>
+          <button type="button" id="q1-10-2" data-text="deeren"><span class="ltr">C</span>deeren</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
   </section>
 
   <!-- ======================= LESSON 2 ======================= -->
@@ -398,8 +530,135 @@
       </ol>
     </div>
 
-    <div class="quizhead"><h3>Now you try &mdash; 14 questions</h3><p class="score" data-score="q2"></p></div>
-    <div class="quiz" data-quiz="q2"></div>
+    <div class="quizhead"><h3>Now you try &mdash; 14 questions</h3><p class="score" data-score="q2">0 of 14 correct</p></div>
+    <div class="quiz" data-quiz="q2">
+      <div class="q">
+        <p class="qt"><span>Yesterday I ___ the ball with one hand.</span></p>
+        <div class="opts" data-answer="0" data-why="catch &amp;rarr; caught.">
+          <button type="button" id="q2-0-0" data-text="caught"><span class="ltr">A</span>caught</button>
+          <button type="button" id="q2-0-1" data-text="catched"><span class="ltr">B</span>catched</button>
+          <button type="button" id="q2-0-2" data-text="catchd"><span class="ltr">C</span>catchd</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>She ___ the stick to her dog.</span></p>
+        <div class="opts" data-answer="1" data-why="throw &amp;rarr; threw.">
+          <button type="button" id="q2-1-0" data-text="throwed"><span class="ltr">A</span>throwed</button>
+          <button type="button" id="q2-1-1" data-text="threw"><span class="ltr">B</span>threw</button>
+          <button type="button" id="q2-1-2" data-text="throwing"><span class="ltr">C</span>throwing</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The bird ___ over our house.</span></p>
+        <div class="opts" data-answer="2" data-why="fly &amp;rarr; flew.">
+          <button type="button" id="q2-2-0" data-text="flied"><span class="ltr">A</span>flied</button>
+          <button type="button" id="q2-2-1" data-text="flyed"><span class="ltr">B</span>flyed</button>
+          <button type="button" id="q2-2-2" data-text="flew"><span class="ltr">C</span>flew</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Last summer we ___ in the lake.</span></p>
+        <div class="opts" data-answer="0" data-why="swim &amp;rarr; swam.">
+          <button type="button" id="q2-3-0" data-text="swam"><span class="ltr">A</span>swam</button>
+          <button type="button" id="q2-3-1" data-text="swimmed"><span class="ltr">B</span>swimmed</button>
+          <button type="button" id="q2-3-2" data-text="swimed"><span class="ltr">C</span>swimed</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>He ___ all the way to school.</span></p>
+        <div class="opts" data-answer="1" data-why="run &amp;rarr; ran.">
+          <button type="button" id="q2-4-0" data-text="runned"><span class="ltr">A</span>runned</button>
+          <button type="button" id="q2-4-1" data-text="ran"><span class="ltr">B</span>ran</button>
+          <button type="button" id="q2-4-2" data-text="runed"><span class="ltr">C</span>runed</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>I ___ all of my dinner.</span></p>
+        <div class="opts" data-answer="2" data-why="eat &amp;rarr; ate.">
+          <button type="button" id="q2-5-0" data-text="eated"><span class="ltr">A</span>eated</button>
+          <button type="button" id="q2-5-1" data-text="eat"><span class="ltr">B</span>eat</button>
+          <button type="button" id="q2-5-2" data-text="ate"><span class="ltr">C</span>ate</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The cat ___ her milk.</span></p>
+        <div class="opts" data-answer="0" data-why="drink &amp;rarr; drank.">
+          <button type="button" id="q2-6-0" data-text="drank"><span class="ltr">A</span>drank</button>
+          <button type="button" id="q2-6-1" data-text="drinked"><span class="ltr">B</span>drinked</button>
+          <button type="button" id="q2-6-2" data-text="drinking"><span class="ltr">C</span>drinking</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>We ___ a happy song at the party.</span></p>
+        <div class="opts" data-answer="1" data-why="sing &amp;rarr; sang.">
+          <button type="button" id="q2-7-0" data-text="singed"><span class="ltr">A</span>singed</button>
+          <button type="button" id="q2-7-1" data-text="sang"><span class="ltr">B</span>sang</button>
+          <button type="button" id="q2-7-2" data-text="songed"><span class="ltr">C</span>songed</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>She ___ her name on the paper.</span></p>
+        <div class="opts" data-answer="2" data-why="write &amp;rarr; wrote.">
+          <button type="button" id="q2-8-0" data-text="writed"><span class="ltr">A</span>writed</button>
+          <button type="button" id="q2-8-1" data-text="writing"><span class="ltr">B</span>writing</button>
+          <button type="button" id="q2-8-2" data-text="wrote"><span class="ltr">C</span>wrote</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>I ___ my lunch to school today.</span></p>
+        <div class="opts" data-answer="0" data-why="take &amp;rarr; took.">
+          <button type="button" id="q2-9-0" data-text="took"><span class="ltr">A</span>took</button>
+          <button type="button" id="q2-9-1" data-text="taked"><span class="ltr">B</span>taked</button>
+          <button type="button" id="q2-9-2" data-text="taking"><span class="ltr">C</span>taking</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>He ___ me a new pencil.</span></p>
+        <div class="opts" data-answer="1" data-why="give &amp;rarr; gave.">
+          <button type="button" id="q2-10-0" data-text="gived"><span class="ltr">A</span>gived</button>
+          <button type="button" id="q2-10-1" data-text="gave"><span class="ltr">B</span>gave</button>
+          <button type="button" id="q2-10-2" data-text="giving"><span class="ltr">C</span>giving</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>We ___ a very big dog in the park.</span></p>
+        <div class="opts" data-answer="2" data-why="see &amp;rarr; saw.">
+          <button type="button" id="q2-11-0" data-text="seed"><span class="ltr">A</span>seed</button>
+          <button type="button" id="q2-11-1" data-text="seeing"><span class="ltr">B</span>seeing</button>
+          <button type="button" id="q2-11-2" data-text="saw"><span class="ltr">C</span>saw</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>They ___ to the park after lunch.</span></p>
+        <div class="opts" data-answer="0" data-why="go &amp;rarr; went.">
+          <button type="button" id="q2-12-0" data-text="went"><span class="ltr">A</span>went</button>
+          <button type="button" id="q2-12-1" data-text="goed"><span class="ltr">B</span>goed</button>
+          <button type="button" id="q2-12-2" data-text="going"><span class="ltr">C</span>going</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>I ___ for ten whole hours.</span></p>
+        <div class="opts" data-answer="1" data-why="sleep &amp;rarr; slept.">
+          <button type="button" id="q2-13-0" data-text="sleeped"><span class="ltr">A</span>sleeped</button>
+          <button type="button" id="q2-13-1" data-text="slept"><span class="ltr">B</span>slept</button>
+          <button type="button" id="q2-13-2" data-text="sleeping"><span class="ltr">C</span>sleeping</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
   </section>
 
   <div class="stop">
@@ -409,8 +668,8 @@
 
   <div class="sitting" id="s2">
     <span class="lbl">Sitting two of three</span>
-    <h2>Describing words</h2>
-    <p>Two lessons about words that tell us more. <span class="mins">About 20 minutes.</span> Not much writing today &mdash; more thinking.</p>
+    <h2>Describing &amp; building words</h2>
+    <p>Two lessons about words that tell us more, then a fun one about words made out of other words. <span class="mins">About 30 minutes.</span> Take a stretch break after Lesson 4.</p>
   </div>
 
   <!-- ======================= LESSON 3 ======================= -->
@@ -463,8 +722,81 @@
       </ol>
     </div>
 
-    <div class="quizhead"><h3>Find the adjective &mdash; 8 questions</h3><p class="score" data-score="q3"></p></div>
-    <div class="quiz" data-quiz="q3"></div>
+    <div class="quizhead"><h3>Find the adjective &mdash; 8 questions</h3><p class="score" data-score="q3">0 of 8 correct</p></div>
+    <div class="quiz" data-quiz="q3">
+      <div class="q">
+        <p class="qt"><span>The old truck stopped. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="0" data-why="What kind of truck? An old one.">
+          <button type="button" id="q3-0-0" data-text="old"><span class="ltr">A</span>old</button>
+          <button type="button" id="q3-0-1" data-text="truck"><span class="ltr">B</span>truck</button>
+          <button type="button" id="q3-0-2" data-text="stopped"><span class="ltr">C</span>stopped</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>I ate a sweet apple. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="1" data-why="What kind of apple? A sweet one.">
+          <button type="button" id="q3-1-0" data-text="ate"><span class="ltr">A</span>ate</button>
+          <button type="button" id="q3-1-1" data-text="sweet"><span class="ltr">B</span>sweet</button>
+          <button type="button" id="q3-1-2" data-text="apple"><span class="ltr">C</span>apple</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>My room is messy. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="2" data-why="What kind of room? A messy one.">
+          <button type="button" id="q3-2-0" data-text="room"><span class="ltr">A</span>room</button>
+          <button type="button" id="q3-2-1" data-text="is"><span class="ltr">B</span>is</button>
+          <button type="button" id="q3-2-2" data-text="messy"><span class="ltr">C</span>messy</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>A loud bell rang. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="0" data-why="What kind of bell? A loud one.">
+          <button type="button" id="q3-3-0" data-text="loud"><span class="ltr">A</span>loud</button>
+          <button type="button" id="q3-3-1" data-text="bell"><span class="ltr">B</span>bell</button>
+          <button type="button" id="q3-3-2" data-text="rang"><span class="ltr">C</span>rang</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>She has curly hair. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="1" data-why="What kind of hair? Curly hair.">
+          <button type="button" id="q3-4-0" data-text="has"><span class="ltr">A</span>has</button>
+          <button type="button" id="q3-4-1" data-text="curly"><span class="ltr">B</span>curly</button>
+          <button type="button" id="q3-4-2" data-text="hair"><span class="ltr">C</span>hair</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The hot soup smells good. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="0" data-why="What kind of soup? Hot soup.">
+          <button type="button" id="q3-5-0" data-text="hot"><span class="ltr">A</span>hot</button>
+          <button type="button" id="q3-5-1" data-text="soup"><span class="ltr">B</span>soup</button>
+          <button type="button" id="q3-5-2" data-text="smells"><span class="ltr">C</span>smells</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>We saw five ducks. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="1" data-why="How many ducks? Five. <em>How many</em> is an adjective question too.">
+          <button type="button" id="q3-6-0" data-text="saw"><span class="ltr">A</span>saw</button>
+          <button type="button" id="q3-6-1" data-text="five"><span class="ltr">B</span>five</button>
+          <button type="button" id="q3-6-2" data-text="ducks"><span class="ltr">C</span>ducks</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The soft blanket is mine. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="0" data-why="What kind of blanket? A soft one.">
+          <button type="button" id="q3-7-0" data-text="soft"><span class="ltr">A</span>soft</button>
+          <button type="button" id="q3-7-1" data-text="blanket"><span class="ltr">B</span>blanket</button>
+          <button type="button" id="q3-7-2" data-text="mine"><span class="ltr">C</span>mine</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
   </section>
 
   <!-- ======================= LESSON 4 ======================= -->
@@ -527,8 +859,270 @@
       </ol>
     </div>
 
-    <div class="quizhead"><h3>Find the adverb &mdash; 8 questions</h3><p class="score" data-score="q4"></p></div>
-    <div class="quiz" data-quiz="q4"></div>
+    <div class="quizhead"><h3>Find the adverb &mdash; 8 questions</h3><p class="score" data-score="q4">0 of 8 correct</p></div>
+    <div class="quiz" data-quiz="q4">
+      <div class="q">
+        <p class="qt"><span>Slowly the turtle walked across the road. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="1" data-why="How did the turtle walk? Slowly.">
+          <button type="button" id="q4-0-0" data-text="turtle"><span class="ltr">A</span>turtle</button>
+          <button type="button" id="q4-0-1" data-text="slowly"><span class="ltr">B</span>slowly</button>
+          <button type="button" id="q4-0-2" data-text="walked"><span class="ltr">C</span>walked</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>She quickly ate her lunch. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="2" data-why="How did she eat? Quickly.">
+          <button type="button" id="q4-1-0" data-text="ate"><span class="ltr">A</span>ate</button>
+          <button type="button" id="q4-1-1" data-text="lunch"><span class="ltr">B</span>lunch</button>
+          <button type="button" id="q4-1-2" data-text="quickly"><span class="ltr">C</span>quickly</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The baby cried softly in her crib. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="0" data-why="How did the baby cry? Softly.">
+          <button type="button" id="q4-2-0" data-text="softly"><span class="ltr">A</span>softly</button>
+          <button type="button" id="q4-2-1" data-text="cried"><span class="ltr">B</span>cried</button>
+          <button type="button" id="q4-2-2" data-text="crib"><span class="ltr">C</span>crib</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>He quietly shut the door. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="2" data-why="How did he shut the door? Quietly.">
+          <button type="button" id="q4-3-0" data-text="shut"><span class="ltr">A</span>shut</button>
+          <button type="button" id="q4-3-1" data-text="door"><span class="ltr">B</span>door</button>
+          <button type="button" id="q4-3-2" data-text="quietly"><span class="ltr">C</span>quietly</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>My dad sings loudly in the car. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="2" data-why="How does he sing? Loudly.">
+          <button type="button" id="q4-4-0" data-text="sings"><span class="ltr">A</span>sings</button>
+          <button type="button" id="q4-4-1" data-text="car"><span class="ltr">B</span>car</button>
+          <button type="button" id="q4-4-2" data-text="loudly"><span class="ltr">C</span>loudly</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Soon we will leave for school. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="1" data-why="When will we leave? Soon.">
+          <button type="button" id="q4-5-0" data-text="leave"><span class="ltr">A</span>leave</button>
+          <button type="button" id="q4-5-1" data-text="soon"><span class="ltr">B</span>soon</button>
+          <button type="button" id="q4-5-2" data-text="school"><span class="ltr">C</span>school</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The dog sleeps outside every night. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="0" data-why="Where does the dog sleep? Outside.">
+          <button type="button" id="q4-6-0" data-text="outside"><span class="ltr">A</span>outside</button>
+          <button type="button" id="q4-6-1" data-text="dog"><span class="ltr">B</span>dog</button>
+          <button type="button" id="q4-6-2" data-text="night"><span class="ltr">C</span>night</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The quick fox ran quickly to its den. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="0" data-why="Quickly tells about the running &amp;mdash; a verb. Quick tells about the fox &amp;mdash; a noun, so that one is an adjective.">
+          <button type="button" id="q4-7-0" data-text="quickly"><span class="ltr">A</span>quickly</button>
+          <button type="button" id="q4-7-1" data-text="quick"><span class="ltr">B</span>quick</button>
+          <button type="button" id="q4-7-2" data-text="fox"><span class="ltr">C</span>fox</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LESSON 5 ======================= -->
+  <section class="lesson" id="l5">
+    <div class="head"><span class="num">5</span><h2>Compound words</h2></div>
+
+    <div class="rulebox">
+      <span class="big">A compound word is two small words joined into one big word.</span>
+      <p><b>sun</b> + <b>shine</b> = <b>sunshine</b>. Both little words are still hiding inside the big one.</p>
+    </div>
+
+    <p>This is the friendliest rule in the whole workshop. Nothing changes and nothing gets added &mdash; you just push two words together and a brand new word pops out. Read each one below and see if you can spot the two little words before you look.</p>
+
+    <div class="group">
+      <h3>Two little words &rarr; one big word</h3>
+      <div class="pairs wide">
+        <div><b>sun</b><span class="to">+</span><b>shine</b><span class="to">=</span><span class="new">sunshine</span></div>
+        <div><b>rain</b><span class="to">+</span><b>bow</b><span class="to">=</span><span class="new">rainbow</span></div>
+        <div><b>butter</b><span class="to">+</span><b>fly</b><span class="to">=</span><span class="new">butterfly</span></div>
+        <div><b>cup</b><span class="to">+</span><b>cake</b><span class="to">=</span><span class="new">cupcake</span></div>
+        <div><b>snow</b><span class="to">+</span><b>man</b><span class="to">=</span><span class="new">snowman</span></div>
+        <div><b>tooth</b><span class="to">+</span><b>brush</b><span class="to">=</span><span class="new">toothbrush</span></div>
+        <div><b>bed</b><span class="to">+</span><b>room</b><span class="to">=</span><span class="new">bedroom</span></div>
+        <div><b>foot</b><span class="to">+</span><b>ball</b><span class="to">=</span><span class="new">football</span></div>
+        <div><b>back</b><span class="to">+</span><b>pack</b><span class="to">=</span><span class="new">backpack</span></div>
+        <div><b>star</b><span class="to">+</span><b>fish</b><span class="to">=</span><span class="new">starfish</span></div>
+        <div><b>play</b><span class="to">+</span><b>ground</b><span class="to">=</span><span class="new">playground</span></div>
+        <div><b>birth</b><span class="to">+</span><b>day</b><span class="to">=</span><span class="new">birthday</span></div>
+        <div><b>pop</b><span class="to">+</span><b>corn</b><span class="to">=</span><span class="new">popcorn</span></div>
+        <div><b>sand</b><span class="to">+</span><b>castle</b><span class="to">=</span><span class="new">sandcastle</span></div>
+        <div><b>pan</b><span class="to">+</span><b>cake</b><span class="to">=</span><span class="new">pancake</span></div>
+      </div>
+    </div>
+
+    <div class="rulebox">
+      <span class="big">Careful! Not every one means what it looks like.</span>
+      <p>A <b>butterfly</b> is not a fly made of butter. Sometimes the two little words join up and the big word means something all of its own.</p>
+    </div>
+
+    <p>You have met some of these little words already. <b>Tooth</b> from Lesson 1 is hiding in <em>toothbrush</em>, <b>foot</b> is hiding in <em>football</em>, and <b>fish</b> is hiding in <em>starfish</em>.</p>
+
+    <div class="paper">
+      <span class="tag">Write this down</span>
+      <ol>
+        <li>Write: <span class="hand">A compound word is two small words joined into one big word.</span></li>
+        <li>Under it write your example with the signs: <span class="hand">sun + shine = sunshine</span></li>
+        <li>Pick five more words from the list and write them out the same way.</li>
+        <li>Now draw one of them. Can somebody at home guess which compound word you drew?</li>
+      </ol>
+    </div>
+
+    <div class="quizhead"><h3>Now you try &mdash; 15 questions</h3><p class="score" data-score="qc">0 of 15 correct</p></div>
+    <div class="quiz" data-quiz="qc">
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>sunshine</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="sun + shine = sunshine.">
+          <button type="button" id="qc-0-0" data-text="sun + shine"><span class="ltr">A</span>sun + shine</button>
+          <button type="button" id="qc-0-1" data-text="sunny + shine"><span class="ltr">B</span>sunny + shine</button>
+          <button type="button" id="qc-0-2" data-text="sun + shiny"><span class="ltr">C</span>sun + shiny</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>rainbow</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="rain + bow = rainbow.">
+          <button type="button" id="qc-1-0" data-text="ray + bow"><span class="ltr">A</span>ray + bow</button>
+          <button type="button" id="qc-1-1" data-text="rain + bow"><span class="ltr">B</span>rain + bow</button>
+          <button type="button" id="qc-1-2" data-text="rain + blow"><span class="ltr">C</span>rain + blow</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>butterfly</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="butter + fly = butterfly &amp;mdash; even though it is not made of butter!">
+          <button type="button" id="qc-2-0" data-text="but + fly"><span class="ltr">A</span>but + fly</button>
+          <button type="button" id="qc-2-1" data-text="butter + flew"><span class="ltr">B</span>butter + flew</button>
+          <button type="button" id="qc-2-2" data-text="butter + fly"><span class="ltr">C</span>butter + fly</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>cupcake</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="cup + cake = cupcake.">
+          <button type="button" id="qc-3-0" data-text="cup + cake"><span class="ltr">A</span>cup + cake</button>
+          <button type="button" id="qc-3-1" data-text="cap + cake"><span class="ltr">B</span>cap + cake</button>
+          <button type="button" id="qc-3-2" data-text="cup + cook"><span class="ltr">C</span>cup + cook</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>snowman</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="snow + man = snowman.">
+          <button type="button" id="qc-4-0" data-text="snow + men"><span class="ltr">A</span>snow + men</button>
+          <button type="button" id="qc-4-1" data-text="snowy + man"><span class="ltr">B</span>snowy + man</button>
+          <button type="button" id="qc-4-2" data-text="snow + man"><span class="ltr">C</span>snow + man</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>toothbrush</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="tooth + brush = toothbrush. You know <em>tooth</em> from Lesson 1.">
+          <button type="button" id="qc-5-0" data-text="teeth + brush"><span class="ltr">A</span>teeth + brush</button>
+          <button type="button" id="qc-5-1" data-text="tooth + brush"><span class="ltr">B</span>tooth + brush</button>
+          <button type="button" id="qc-5-2" data-text="tooth + bush"><span class="ltr">C</span>tooth + bush</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>bedroom</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="bed + room = bedroom.">
+          <button type="button" id="qc-6-0" data-text="bed + room"><span class="ltr">A</span>bed + room</button>
+          <button type="button" id="qc-6-1" data-text="bed + broom"><span class="ltr">B</span>bed + broom</button>
+          <button type="button" id="qc-6-2" data-text="bad + room"><span class="ltr">C</span>bad + room</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>football</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="foot + ball = football.">
+          <button type="button" id="qc-7-0" data-text="feet + ball"><span class="ltr">A</span>feet + ball</button>
+          <button type="button" id="qc-7-1" data-text="foot + bell"><span class="ltr">B</span>foot + bell</button>
+          <button type="button" id="qc-7-2" data-text="foot + ball"><span class="ltr">C</span>foot + ball</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>backpack</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="back + pack = backpack &amp;mdash; a pack for your back.">
+          <button type="button" id="qc-8-0" data-text="bag + pack"><span class="ltr">A</span>bag + pack</button>
+          <button type="button" id="qc-8-1" data-text="back + pack"><span class="ltr">B</span>back + pack</button>
+          <button type="button" id="qc-8-2" data-text="back + peck"><span class="ltr">C</span>back + peck</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>starfish</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="star + fish = starfish.">
+          <button type="button" id="qc-9-0" data-text="stars + fish"><span class="ltr">A</span>stars + fish</button>
+          <button type="button" id="qc-9-1" data-text="star + fishes"><span class="ltr">B</span>star + fishes</button>
+          <button type="button" id="qc-9-2" data-text="star + fish"><span class="ltr">C</span>star + fish</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>playground</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="play + ground = playground &amp;mdash; the ground where you play.">
+          <button type="button" id="qc-10-0" data-text="play + round"><span class="ltr">A</span>play + round</button>
+          <button type="button" id="qc-10-1" data-text="play + ground"><span class="ltr">B</span>play + ground</button>
+          <button type="button" id="qc-10-2" data-text="plays + ground"><span class="ltr">C</span>plays + ground</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>birthday</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="birth + day = birthday.">
+          <button type="button" id="qc-11-0" data-text="birth + day"><span class="ltr">A</span>birth + day</button>
+          <button type="button" id="qc-11-1" data-text="bird + day"><span class="ltr">B</span>bird + day</button>
+          <button type="button" id="qc-11-2" data-text="berry + day"><span class="ltr">C</span>berry + day</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>popcorn</b>?</span></p>
+        <div class="opts" data-answer="2" data-why="pop + corn = popcorn &amp;mdash; corn that pops.">
+          <button type="button" id="qc-12-0" data-text="top + corn"><span class="ltr">A</span>top + corn</button>
+          <button type="button" id="qc-12-1" data-text="pop + cone"><span class="ltr">B</span>pop + cone</button>
+          <button type="button" id="qc-12-2" data-text="pop + corn"><span class="ltr">C</span>pop + corn</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>sandcastle</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="sand + castle = sandcastle.">
+          <button type="button" id="qc-13-0" data-text="sand + castle"><span class="ltr">A</span>sand + castle</button>
+          <button type="button" id="qc-13-1" data-text="send + castle"><span class="ltr">B</span>send + castle</button>
+          <button type="button" id="qc-13-2" data-text="sand + cattle"><span class="ltr">C</span>sand + cattle</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>pancake</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="pan + cake = pancake &amp;mdash; a cake you cook in a pan.">
+          <button type="button" id="qc-14-0" data-text="pen + cake"><span class="ltr">A</span>pen + cake</button>
+          <button type="button" id="qc-14-1" data-text="pan + cake"><span class="ltr">B</span>pan + cake</button>
+          <button type="button" id="qc-14-2" data-text="pan + cook"><span class="ltr">C</span>pan + cook</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
   </section>
 
   <div class="stop">
@@ -539,12 +1133,12 @@
   <div class="sitting" id="s3">
     <span class="lbl">Sitting three of three</span>
     <h2>Letters &amp; review</h2>
-    <p>One short lesson, then four questions from every topic. <span class="mins">About 25 minutes.</span> Keep your paper next to you &mdash; you are allowed to look at it in the review.</p>
+    <p>One short lesson, then four questions from every topic. <span class="mins">About 25 minutes.</span> Keep your paper next to you &mdash; you are allowed to look at it during the review.</p>
   </div>
 
-  <!-- ======================= LESSON 5 ======================= -->
-  <section class="lesson" id="l5">
-    <div class="head"><span class="num">5</span><h2>The comma in a letter greeting</h2></div>
+  <!-- ======================= LESSON 6 ======================= -->
+  <section class="lesson" id="l6">
+    <div class="head"><span class="num">6</span><h2>The comma in a letter greeting</h2></div>
 
     <p>When you write a letter, it has parts that always go in the same order. Here is a whole letter. Look closely at the very first line.</p>
 
@@ -585,36 +1179,307 @@
       </ol>
     </div>
 
-    <div class="quizhead"><h3>Now you try &mdash; 5 questions</h3><p class="score" data-score="q5"></p></div>
-    <div class="quiz" data-quiz="q5"></div>
+    <div class="quizhead"><h3>Now you try &mdash; 5 questions</h3><p class="score" data-score="q5">0 of 5 correct</p></div>
+    <div class="quiz" data-quiz="q5">
+      <div class="q">
+        <p class="qt"><span>Which greeting is written correctly?</span></p>
+        <div class="opts" data-answer="0" data-why="Dear + name + comma.">
+          <button type="button" id="q5-0-0" data-text="Dear Grandma,"><span class="ltr">A</span>Dear Grandma,</button>
+          <button type="button" id="q5-0-1" data-text="Dear Grandma"><span class="ltr">B</span>Dear Grandma</button>
+          <button type="button" id="q5-0-2" data-text="Dear, Grandma"><span class="ltr">C</span>Dear, Grandma</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Where does the comma go in <b>Dear Mom</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="The comma always goes after the name.">
+          <button type="button" id="q5-1-0" data-text="after Dear"><span class="ltr">A</span>after Dear</button>
+          <button type="button" id="q5-1-1" data-text="after Mom"><span class="ltr">B</span>after Mom</button>
+          <button type="button" id="q5-1-2" data-text="nowhere"><span class="ltr">C</span>nowhere</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span><b>Dear Mr. Lee</b> &mdash; what is missing?</span></p>
+        <div class="opts" data-answer="2" data-why="It needs a comma after the name: Dear Mr. Lee,">
+          <button type="button" id="q5-2-0" data-text="nothing"><span class="ltr">A</span>nothing</button>
+          <button type="button" id="q5-2-1" data-text="a comma after Dear"><span class="ltr">B</span>a comma after Dear</button>
+          <button type="button" id="q5-2-2" data-text="a comma after Lee"><span class="ltr">C</span>a comma after Lee</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which one is correct?</span></p>
+        <div class="opts" data-answer="2" data-why="Capital D, capital A, and the comma after the name.">
+          <button type="button" id="q5-3-0" data-text="Dear, Anna"><span class="ltr">A</span>Dear, Anna</button>
+          <button type="button" id="q5-3-1" data-text="dear anna,"><span class="ltr">B</span>dear anna,</button>
+          <button type="button" id="q5-3-2" data-text="Dear Anna,"><span class="ltr">C</span>Dear Anna,</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The greeting goes at the ___ of a letter.</span></p>
+        <div class="opts" data-answer="1" data-why="The greeting is the first line. The closing goes at the end.">
+          <button type="button" id="q5-4-0" data-text="end"><span class="ltr">A</span>end</button>
+          <button type="button" id="q5-4-1" data-text="beginning"><span class="ltr">B</span>beginning</button>
+          <button type="button" id="q5-4-2" data-text="middle"><span class="ltr">C</span>middle</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
   </section>
 
-  <!-- ======================= LESSON 6 ======================= -->
-  <section class="lesson finale" id="l6">
-    <div class="head"><span class="num">6</span><h2>Big review</h2></div>
+  <!-- ======================= LESSON 7 ======================= -->
+  <section class="lesson finale" id="l7">
+    <div class="head"><span class="num">7</span><h2>Big review</h2></div>
     <p>Four questions from every lesson. Do this one without looking back &mdash; but your paper is allowed!</p>
 
     <p class="subhead">Irregular plurals</p>
-    <div class="quiz" data-quiz="r1"></div>
+    <div class="quiz" data-quiz="r1">
+      <div class="q">
+        <p class="qt"><span>One mouse, two ___</span></p>
+        <div class="opts" data-answer="0" data-why="mouse &amp;rarr; mice.">
+          <button type="button" id="r1-0-0" data-text="mice"><span class="ltr">A</span>mice</button>
+          <button type="button" id="r1-0-1" data-text="mouses"><span class="ltr">B</span>mouses</button>
+          <button type="button" id="r1-0-2" data-text="mices"><span class="ltr">C</span>mices</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>One foot, two ___</span></p>
+        <div class="opts" data-answer="2" data-why="foot &amp;rarr; feet.">
+          <button type="button" id="r1-1-0" data-text="foots"><span class="ltr">A</span>foots</button>
+          <button type="button" id="r1-1-1" data-text="feets"><span class="ltr">B</span>feets</button>
+          <button type="button" id="r1-1-2" data-text="feet"><span class="ltr">C</span>feet</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>The dentist counted all of my ___.</span></p>
+        <div class="opts" data-answer="1" data-why="tooth &amp;rarr; teeth.">
+          <button type="button" id="r1-2-0" data-text="tooths"><span class="ltr">A</span>tooths</button>
+          <button type="button" id="r1-2-1" data-text="teeth"><span class="ltr">B</span>teeth</button>
+          <button type="button" id="r1-2-2" data-text="toothes"><span class="ltr">C</span>toothes</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Five ___ are standing in the field.</span></p>
+        <div class="opts" data-answer="0" data-why="sheep stays sheep.">
+          <button type="button" id="r1-3-0" data-text="sheep"><span class="ltr">A</span>sheep</button>
+          <button type="button" id="r1-3-1" data-text="sheeps"><span class="ltr">B</span>sheeps</button>
+          <button type="button" id="r1-3-2" data-text="sheepes"><span class="ltr">C</span>sheepes</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
 
     <p class="subhead">Past tense</p>
-    <div class="quiz" data-quiz="r2"></div>
+    <div class="quiz" data-quiz="r2">
+      <div class="q">
+        <p class="qt"><span>My kite ___ very high yesterday.</span></p>
+        <div class="opts" data-answer="1" data-why="fly &amp;rarr; flew.">
+          <button type="button" id="r2-0-0" data-text="flied"><span class="ltr">A</span>flied</button>
+          <button type="button" id="r2-0-1" data-text="flew"><span class="ltr">B</span>flew</button>
+          <button type="button" id="r2-0-2" data-text="flyed"><span class="ltr">C</span>flyed</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Last week we ___ in the big pool.</span></p>
+        <div class="opts" data-answer="0" data-why="swim &amp;rarr; swam.">
+          <button type="button" id="r2-1-0" data-text="swam"><span class="ltr">A</span>swam</button>
+          <button type="button" id="r2-1-1" data-text="swimmed"><span class="ltr">B</span>swimmed</button>
+          <button type="button" id="r2-1-2" data-text="swimed"><span class="ltr">C</span>swimed</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>He ___ the ball before it hit the ground.</span></p>
+        <div class="opts" data-answer="2" data-why="catch &amp;rarr; caught.">
+          <button type="button" id="r2-2-0" data-text="catched"><span class="ltr">A</span>catched</button>
+          <button type="button" id="r2-2-1" data-text="catchd"><span class="ltr">B</span>catchd</button>
+          <button type="button" id="r2-2-2" data-text="caught"><span class="ltr">C</span>caught</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>I ___ my coat onto the bed.</span></p>
+        <div class="opts" data-answer="1" data-why="throw &amp;rarr; threw.">
+          <button type="button" id="r2-3-0" data-text="throwed"><span class="ltr">A</span>throwed</button>
+          <button type="button" id="r2-3-1" data-text="threw"><span class="ltr">B</span>threw</button>
+          <button type="button" id="r2-3-2" data-text="throwing"><span class="ltr">C</span>throwing</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
 
     <p class="subhead">Adjectives</p>
-    <div class="quiz" data-quiz="r3"></div>
+    <div class="quiz" data-quiz="r3">
+      <div class="q">
+        <p class="qt"><span>A tiny ant crawled on my hand. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="0" data-why="What kind of ant? A tiny one.">
+          <button type="button" id="r3-0-0" data-text="tiny"><span class="ltr">A</span>tiny</button>
+          <button type="button" id="r3-0-1" data-text="ant"><span class="ltr">B</span>ant</button>
+          <button type="button" id="r3-0-2" data-text="crawled"><span class="ltr">C</span>crawled</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>My soup is warm. Which word is the adjective?</span></p>
+        <div class="opts" data-answer="2" data-why="What kind of soup? Warm soup.">
+          <button type="button" id="r3-1-0" data-text="soup"><span class="ltr">A</span>soup</button>
+          <button type="button" id="r3-1-1" data-text="is"><span class="ltr">B</span>is</button>
+          <button type="button" id="r3-1-2" data-text="warm"><span class="ltr">C</span>warm</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which question helps you find an adjective?</span></p>
+        <div class="opts" data-answer="1" data-why="Ask <em>What kind?</em> about the noun.">
+          <button type="button" id="r3-2-0" data-text="How?"><span class="ltr">A</span>How?</button>
+          <button type="button" id="r3-2-1" data-text="What kind?"><span class="ltr">B</span>What kind?</button>
+          <button type="button" id="r3-2-2" data-text="When?"><span class="ltr">C</span>When?</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>An adjective describes a ___.</span></p>
+        <div class="opts" data-answer="1" data-why="Adjective &amp;rarr; noun.">
+          <button type="button" id="r3-3-0" data-text="verb"><span class="ltr">A</span>verb</button>
+          <button type="button" id="r3-3-1" data-text="noun"><span class="ltr">B</span>noun</button>
+          <button type="button" id="r3-3-2" data-text="comma"><span class="ltr">C</span>comma</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
 
     <p class="subhead">Adverbs</p>
-    <div class="quiz" data-quiz="r4"></div>
+    <div class="quiz" data-quiz="r4">
+      <div class="q">
+        <p class="qt"><span>Slowly the train moved out of the station. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="1" data-why="How did the train move? Slowly.">
+          <button type="button" id="r4-0-0" data-text="train"><span class="ltr">A</span>train</button>
+          <button type="button" id="r4-0-1" data-text="slowly"><span class="ltr">B</span>slowly</button>
+          <button type="button" id="r4-0-2" data-text="moved"><span class="ltr">C</span>moved</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>She spoke kindly to me. Which word is the adverb?</span></p>
+        <div class="opts" data-answer="0" data-why="How did she speak? Kindly.">
+          <button type="button" id="r4-1-0" data-text="kindly"><span class="ltr">A</span>kindly</button>
+          <button type="button" id="r4-1-1" data-text="spoke"><span class="ltr">B</span>spoke</button>
+          <button type="button" id="r4-1-2" data-text="me"><span class="ltr">C</span>me</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which question helps you find an adverb?</span></p>
+        <div class="opts" data-answer="1" data-why="Ask <em>How?</em> about the verb.">
+          <button type="button" id="r4-2-0" data-text="What kind?"><span class="ltr">A</span>What kind?</button>
+          <button type="button" id="r4-2-1" data-text="How?"><span class="ltr">B</span>How?</button>
+          <button type="button" id="r4-2-2" data-text="Which one?"><span class="ltr">C</span>Which one?</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>An adverb describes a ___.</span></p>
+        <div class="opts" data-answer="0" data-why="Adverb &amp;rarr; verb.">
+          <button type="button" id="r4-3-0" data-text="verb"><span class="ltr">A</span>verb</button>
+          <button type="button" id="r4-3-1" data-text="noun"><span class="ltr">B</span>noun</button>
+          <button type="button" id="r4-3-2" data-text="name"><span class="ltr">C</span>name</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
+
+    <p class="subhead">Compound words</p>
+    <div class="quiz" data-quiz="rc">
+      <div class="q">
+        <p class="qt"><span>Which two little words make <b>sunshine</b>?</span></p>
+        <div class="opts" data-answer="1" data-why="sun + shine = sunshine.">
+          <button type="button" id="rc-0-0" data-text="sunny + shine"><span class="ltr">A</span>sunny + shine</button>
+          <button type="button" id="rc-0-1" data-text="sun + shine"><span class="ltr">B</span>sun + shine</button>
+          <button type="button" id="rc-0-2" data-text="sun + shiny"><span class="ltr">C</span>sun + shiny</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>What word do you get when you join <b>rain</b> and <b>bow</b>?</span></p>
+        <div class="opts" data-answer="0" data-why="rain + bow = rainbow.">
+          <button type="button" id="rc-1-0" data-text="rainbow"><span class="ltr">A</span>rainbow</button>
+          <button type="button" id="rc-1-1" data-text="rainybow"><span class="ltr">B</span>rainybow</button>
+          <button type="button" id="rc-1-2" data-text="rainbowl"><span class="ltr">C</span>rainbowl</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>A compound word is ___.</span></p>
+        <div class="opts" data-answer="1" data-why="Two little words pushed together to make one big word.">
+          <button type="button" id="rc-2-0" data-text="a word that means more than one"><span class="ltr">A</span>a word that means more than one</button>
+          <button type="button" id="rc-2-1" data-text="two small words joined together"><span class="ltr">B</span>two small words joined together</button>
+          <button type="button" id="rc-2-2" data-text="a word that describes a noun"><span class="ltr">C</span>a word that describes a noun</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which one of these is a compound word?</span></p>
+        <div class="opts" data-answer="2" data-why="tooth + brush. The other two are just one word with an ending added.">
+          <button type="button" id="rc-3-0" data-text="running"><span class="ltr">A</span>running</button>
+          <button type="button" id="rc-3-1" data-text="brushing"><span class="ltr">B</span>brushing</button>
+          <button type="button" id="rc-3-2" data-text="toothbrush"><span class="ltr">C</span>toothbrush</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
 
     <p class="subhead">Letter greeting comma</p>
-    <div class="quiz" data-quiz="r5"></div>
+    <div class="quiz" data-quiz="r5">
+      <div class="q">
+        <p class="qt"><span>Which greeting is correct?</span></p>
+        <div class="opts" data-answer="1" data-why="Dear + name + comma.">
+          <button type="button" id="r5-0-0" data-text="Dear, Sam"><span class="ltr">A</span>Dear, Sam</button>
+          <button type="button" id="r5-0-1" data-text="Dear Sam,"><span class="ltr">B</span>Dear Sam,</button>
+          <button type="button" id="r5-0-2" data-text="Dear Sam"><span class="ltr">C</span>Dear Sam</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span><b>Dear Aunt Kate</b> ___ &mdash; what goes here?</span></p>
+        <div class="opts" data-answer="0" data-why="A greeting ends with a comma.">
+          <button type="button" id="r5-1-0" data-text="a comma"><span class="ltr">A</span>a comma</button>
+          <button type="button" id="r5-1-1" data-text="a period"><span class="ltr">B</span>a period</button>
+          <button type="button" id="r5-1-2" data-text="a question mark"><span class="ltr">C</span>a question mark</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Where is the greeting in a letter?</span></p>
+        <div class="opts" data-answer="2" data-why="It is the very first line.">
+          <button type="button" id="r5-2-0" data-text="the middle"><span class="ltr">A</span>the middle</button>
+          <button type="button" id="r5-2-1" data-text="the end"><span class="ltr">B</span>the end</button>
+          <button type="button" id="r5-2-2" data-text="the beginning"><span class="ltr">C</span>the beginning</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+      <div class="q">
+        <p class="qt"><span>Which one has the comma in the right place?</span></p>
+        <div class="opts" data-answer="2" data-why="After the whole name.">
+          <button type="button" id="r5-3-0" data-text="Dear, Grandpa"><span class="ltr">A</span>Dear, Grandpa</button>
+          <button type="button" id="r5-3-1" data-text="Dear Grand,pa"><span class="ltr">B</span>Dear Grand,pa</button>
+          <button type="button" id="r5-3-2" data-text="Dear Grandpa,"><span class="ltr">C</span>Dear Grandpa,</button>
+        </div>
+        <p class="fb" hidden></p>
+      </div>
+    </div>
 
-    <div class="quizhead"><h3>Review total</h3><p class="score" data-score="rall"></p></div>
+    <div class="quizhead"><h3>Review total</h3><p class="score" data-score="rall">0 of 24 correct</p></div>
   </section>
 
   <div class="stop">
     <span class="big">All three sittings finished!</span>
-    <p>You learned 11 tricky plurals, 14 past tense verbs, adjectives, adverbs and the greeting comma. Read your paper out loud to someone at home.</p>
+    <p>You learned 11 tricky plurals, 14 past tense verbs, 15 compound words, adjectives, adverbs and the greeting comma. Read your paper out loud to someone at home.</p>
   </div>
 
   <footer>Read it, write it, say it out loud. That is how words stick.</footer>
@@ -622,201 +1487,330 @@
 </div>
 
 <script>
-  const QUIZ = {
-    q1: [
-      ["Which is the correct plural of <b>man</b>?", ["men","mans","mens"], 0, "One man, two men."],
-      ["Which is the correct plural of <b>woman</b>?", ["womans","womens","women"], 2, "One woman, two women. The <em>a</em> turns into an <em>e</em>."],
-      ["Which is the correct plural of <b>child</b>?", ["children","childs","childrens"], 0, "One child, two children."],
-      ["Ten ___ are waiting for the bus.", ["persons","people","peoples"], 1, "More than one person = people."],
-      ["Which is the correct plural of <b>foot</b>?", ["foots","feets","feet"], 2, "One foot, two feet. No <em>s</em> at all."],
-      ["Which is the correct plural of <b>tooth</b>?", ["teeth","tooths","toothes"], 0, "One tooth, two teeth."],
-      ["Which is the correct plural of <b>goose</b>?", ["gooses","geese","goosen"], 1, "One goose, two geese &mdash; just like tooth and teeth."],
-      ["Which is the correct plural of <b>mouse</b>?", ["mouses","mices","mice"], 2, "One mouse, two mice."],
-      ["Which is the correct plural of <b>sheep</b>?", ["sheep","sheeps","sheepes"], 0, "Sheep does not change at all."],
-      ["I caught three ___ in the lake.", ["fishes","fish","fishs"], 1, "Fish stays fish, even when there are lots."],
-      ["Which is the correct plural of <b>deer</b>?", ["deers","deer","deeren"], 1, "Deer does not change either."]
-    ],
-    q2: [
-      ["Yesterday I ___ the ball with one hand.", ["caught","catched","catchd"], 0, "catch &rarr; caught."],
-      ["She ___ the stick to her dog.", ["throwed","threw","throwing"], 1, "throw &rarr; threw."],
-      ["The bird ___ over our house.", ["flied","flyed","flew"], 2, "fly &rarr; flew."],
-      ["Last summer we ___ in the lake.", ["swam","swimmed","swimed"], 0, "swim &rarr; swam."],
-      ["He ___ all the way to school.", ["runned","ran","runed"], 1, "run &rarr; ran."],
-      ["I ___ all of my dinner.", ["eated","eat","ate"], 2, "eat &rarr; ate."],
-      ["The cat ___ her milk.", ["drank","drinked","drinking"], 0, "drink &rarr; drank."],
-      ["We ___ a happy song at the party.", ["singed","sang","songed"], 1, "sing &rarr; sang."],
-      ["She ___ her name on the paper.", ["writed","writing","wrote"], 2, "write &rarr; wrote."],
-      ["I ___ my lunch to school today.", ["took","taked","taking"], 0, "take &rarr; took."],
-      ["He ___ me a new pencil.", ["gived","gave","giving"], 1, "give &rarr; gave."],
-      ["We ___ a very big dog in the park.", ["seed","seeing","saw"], 2, "see &rarr; saw."],
-      ["They ___ to the park after lunch.", ["went","goed","going"], 0, "go &rarr; went."],
-      ["I ___ for ten whole hours.", ["sleeped","slept","sleeping"], 1, "sleep &rarr; slept."]
-    ],
-    q3: [
-      ["The old truck stopped. Which word is the adjective?", ["old","truck","stopped"], 0, "What kind of truck? An old one."],
-      ["I ate a sweet apple. Which word is the adjective?", ["ate","sweet","apple"], 1, "What kind of apple? A sweet one."],
-      ["My room is messy. Which word is the adjective?", ["room","is","messy"], 2, "What kind of room? A messy one."],
-      ["A loud bell rang. Which word is the adjective?", ["loud","bell","rang"], 0, "What kind of bell? A loud one."],
-      ["She has curly hair. Which word is the adjective?", ["has","curly","hair"], 1, "What kind of hair? Curly hair."],
-      ["The hot soup smells good. Which word is the adjective?", ["hot","soup","smells"], 0, "What kind of soup? Hot soup."],
-      ["We saw five ducks. Which word is the adjective?", ["saw","five","ducks"], 1, "How many ducks? Five. <em>How many</em> is an adjective question too."],
-      ["The soft blanket is mine. Which word is the adjective?", ["soft","blanket","mine"], 0, "What kind of blanket? A soft one."]
-    ],
-    q4: [
-      ["Slowly the turtle walked across the road. Which word is the adverb?", ["turtle","slowly","walked"], 1, "How did the turtle walk? Slowly."],
-      ["She quickly ate her lunch. Which word is the adverb?", ["ate","lunch","quickly"], 2, "How did she eat? Quickly."],
-      ["The baby cried softly in her crib. Which word is the adverb?", ["softly","cried","crib"], 0, "How did the baby cry? Softly."],
-      ["He quietly shut the door. Which word is the adverb?", ["shut","door","quietly"], 2, "How did he shut the door? Quietly."],
-      ["My dad sings loudly in the car. Which word is the adverb?", ["sings","car","loudly"], 2, "How does he sing? Loudly."],
-      ["Soon we will leave for school. Which word is the adverb?", ["leave","soon","school"], 1, "When will we leave? Soon."],
-      ["The dog sleeps outside every night. Which word is the adverb?", ["outside","dog","night"], 0, "Where does the dog sleep? Outside."],
-      ["The quick fox ran quickly to its den. Which word is the adverb?", ["quickly","quick","fox"], 0, "Quickly tells about the running &mdash; a verb. Quick tells about the fox &mdash; a noun, so that one is an adjective."]
-    ],
-    q5: [
-      ["Which greeting is written correctly?", ["Dear Grandma,","Dear Grandma","Dear, Grandma"], 0, "Dear + name + comma."],
-      ["Where does the comma go in <b>Dear Mom</b>?", ["after Dear","after Mom","nowhere"], 1, "The comma always goes after the name."],
-      ["<b>Dear Mr. Lee</b> &mdash; what is missing?", ["nothing","a comma after Dear","a comma after Lee"], 2, "It needs a comma after the name: Dear Mr. Lee,"],
-      ["Which one is correct?", ["Dear, Anna","dear anna,","Dear Anna,"], 2, "Capital D, capital A, and the comma after the name."],
-      ["The greeting goes at the ___ of a letter.", ["end","beginning","middle"], 1, "The greeting is the first line. The closing goes at the end."]
-    ],
-    r1: [
-      ["One mouse, two ___", ["mice","mouses","mices"], 0, "mouse &rarr; mice."],
-      ["One foot, two ___", ["foots","feets","feet"], 2, "foot &rarr; feet."],
-      ["The dentist counted all of my ___.", ["tooths","teeth","toothes"], 1, "tooth &rarr; teeth."],
-      ["Five ___ are standing in the field.", ["sheep","sheeps","sheepes"], 0, "sheep stays sheep."]
-    ],
-    r2: [
-      ["My kite ___ very high yesterday.", ["flied","flew","flyed"], 1, "fly &rarr; flew."],
-      ["Last week we ___ in the big pool.", ["swam","swimmed","swimed"], 0, "swim &rarr; swam."],
-      ["He ___ the ball before it hit the ground.", ["catched","catchd","caught"], 2, "catch &rarr; caught."],
-      ["I ___ my coat onto the bed.", ["throwed","threw","throwing"], 1, "throw &rarr; threw."]
-    ],
-    r3: [
-      ["A tiny ant crawled on my hand. Which word is the adjective?", ["tiny","ant","crawled"], 0, "What kind of ant? A tiny one."],
-      ["My soup is warm. Which word is the adjective?", ["soup","is","warm"], 2, "What kind of soup? Warm soup."],
-      ["Which question helps you find an adjective?", ["How?","What kind?","When?"], 1, "Ask <em>What kind?</em> about the noun."],
-      ["An adjective describes a ___.", ["verb","noun","comma"], 1, "Adjective &rarr; noun."]
-    ],
-    r4: [
-      ["Slowly the train moved out of the station. Which word is the adverb?", ["train","slowly","moved"], 1, "How did the train move? Slowly."],
-      ["She spoke kindly to me. Which word is the adverb?", ["kindly","spoke","me"], 0, "How did she speak? Kindly."],
-      ["Which question helps you find an adverb?", ["What kind?","How?","Which one?"], 1, "Ask <em>How?</em> about the verb."],
-      ["An adverb describes a ___.", ["verb","noun","name"], 0, "Adverb &rarr; verb."]
-    ],
-    r5: [
-      ["Which greeting is correct?", ["Dear, Sam","Dear Sam,","Dear Sam"], 1, "Dear + name + comma."],
-      ["<b>Dear Aunt Kate</b> ___ &mdash; what goes here?", ["a comma","a period","a question mark"], 0, "A greeting ends with a comma."],
-      ["Where is the greeting in a letter?", ["the middle","the end","the beginning"], 2, "It is the very first line."],
-      ["Which one has the comma in the right place?", ["Dear, Grandpa","Dear Grand,pa","Dear Grandpa,"], 2, "After the whole name."]
-    ]
-  };
+/* Written in ES5 on purpose: NodeList.forEach, arrow functions and
+   two-argument classList.toggle all fail on older school computers,
+   and one thrown error there would wipe out every question block. */
+(function () {
+  "use strict";
 
-  const LETTERS = ["A", "B", "C"];
-  const CHEERS = ["Yes!", "Correct!", "That's it!", "Nice work!", "Exactly!"];
-  const NUDGES = ["Not quite &mdash; have another go.", "Close! Try again.", "Nope &mdash; check your paper and try again."];
-  const reviewSets = ["r1", "r2", "r3", "r4", "r5"];
-  const reviewState = {};
+  var CHEERS = ["Yes!", "Correct!", "That's it!", "Nice work!", "Exactly!"];
+  var NUDGES = ["Not quite \u2014 have another go.", "Close! Try again.", "Nope \u2014 check your paper and try again."];
+  var REVIEW_KEYS = ["r1", "r2", "r3", "r4", "rc", "r5"];
+  var SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 2v2a8 8 0 0 1 0 16v2a10 10 0 0 0 0-20z"/></svg>';
 
-  function updateScore(key, done, total) {
-    document.querySelectorAll('[data-score="' + key + '"]').forEach(function (el) {
-      el.textContent = done + " of " + total + " correct";
-      el.classList.toggle("all", done === total && total > 0);
+  function each(list, fn) {
+    var arr = Array.prototype.slice.call(list), i;
+    for (i = 0; i < arr.length; i++) { fn(arr[i], i); }
+  }
+  function clean(s) { return String(s || "").replace(/\s+/g, " ").replace(/^ | $/g, ""); }
+
+  /* ================= read aloud ================= */
+  var synth = window.speechSynthesis;
+  var canSpeak = !!(synth && window.SpeechSynthesisUtterance);
+  var voice = null;
+  var playingBtn = null;
+
+  function pickVoice() {
+    if (!canSpeak) { return; }
+    var vs = synth.getVoices() || [];
+    var prefer = ["Samantha", "Google US English", "Aria", "Jenny", "Natural", "Karen", "Moira", "Daniel"];
+    var p, i;
+    for (p = 0; p < prefer.length; p++) {
+      for (i = 0; i < vs.length; i++) {
+        if (vs[i].lang && vs[i].lang.indexOf("en") === 0 && vs[i].name.indexOf(prefer[p]) > -1) { voice = vs[i]; return; }
+      }
+    }
+    for (i = 0; i < vs.length; i++) {
+      if (vs[i].lang && vs[i].lang.indexOf("en") === 0) { voice = vs[i]; return; }
+    }
+  }
+  if (canSpeak) {
+    pickVoice();
+    if (typeof synth.onvoiceschanged !== "undefined") { synth.onvoiceschanged = pickVoice; }
+  }
+
+  /* Chrome wedges its queue if you call cancel() right before speak(), and it
+     cuts off any single utterance after ~15 seconds. So: only cancel when
+     something is actually talking, wait a beat afterwards, and feed the text
+     in one sentence at a time. */
+  function chunkText(text) {
+    var t = clean(text), out = [], start = 0, i, c, s2, cut, final = [];
+    for (i = 0; i < t.length; i++) {
+      c = t.charAt(i);
+      if ((c === "." || c === "!" || c === "?") && (i - start) > 30) {
+        out.push(t.substring(start, i + 1));
+        start = i + 1;
+      }
+    }
+    if (start < t.length) { out.push(t.substring(start)); }
+    for (i = 0; i < out.length; i++) {
+      s2 = clean(out[i]);
+      while (s2.length > 180) {
+        cut = s2.lastIndexOf(" ", 180);
+        if (cut < 60) { cut = 180; }
+        final.push(clean(s2.substring(0, cut)));
+        s2 = s2.substring(cut);
+      }
+      if (clean(s2)) { final.push(clean(s2)); }
+    }
+    return final;
+  }
+
+  var queue = [];
+  var startTimer = null;
+  var everStarted = false;
+  var noteShown = false;
+  var watchArmed = false;
+
+  function audioTrouble() {
+    if (noteShown || everStarted) { return; }
+    noteShown = true;
+    var n = document.createElement("p");
+    n.className = "audionote";
+    n.innerHTML = "The read-aloud voice did not start. Refresh the page (hold Shift and click reload), " +
+                  "make sure this tab is not muted, and open the page in Chrome or Safari rather than inside another app.";
+    var intro = document.querySelector(".intro");
+    if (intro && intro.parentNode) { intro.parentNode.insertBefore(n, intro.nextSibling); }
+  }
+
+  function stopGlow() {
+    if (playingBtn) { playingBtn.className = "speak"; playingBtn = null; }
+  }
+
+  function speakNext() {
+    if (!queue.length) { stopGlow(); return; }
+    var u = new SpeechSynthesisUtterance(queue.shift());
+    u.lang = "en-US";
+    u.rate = 0.82;
+    u.pitch = 1.05;
+    if (voice) { u.voice = voice; }
+    u.onstart = function () { everStarted = true; };
+    u.onend = function () { speakNext(); };
+    u.onerror = function () { speakNext(); };
+    if (!watchArmed) {
+      watchArmed = true;
+      window.setTimeout(audioTrouble, 2500);
+    }
+    try {
+      synth.resume();
+      synth.speak(u);
+    } catch (e) { stopGlow(); }
+  }
+
+  function say(text, btn) {
+    if (!canSpeak) { return; }
+    var parts = chunkText(text);
+    if (!parts.length) { return; }
+    if (startTimer) { window.clearTimeout(startTimer); startTimer = null; }
+    var busy = synth.speaking || synth.pending;
+    queue = parts;
+    stopGlow();
+    if (btn) { btn.className = "speak playing"; playingBtn = btn; }
+    if (busy) {
+      try { synth.cancel(); } catch (e) {}
+      startTimer = window.setTimeout(function () { startTimer = null; speakNext(); }, 150);
+    } else {
+      speakNext();
+    }
+  }
+
+  /* Chrome also silently pauses long reads; nudge it back awake. */
+  if (canSpeak) {
+    window.setInterval(function () {
+      if (synth.speaking) { try { synth.resume(); } catch (e) {} }
+    }, 9000);
+  }
+
+  function speaker(label, getText) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "speak";
+    b.setAttribute("aria-label", label);
+    b.title = label;
+    b.innerHTML = SPEAKER;
+    b.onclick = function (e) {
+      if (e && e.stopPropagation) { e.stopPropagation(); }
+      say(getText(), b);
+      return false;
+    };
+    return b;
+  }
+
+  /* spell out the symbols in a word row: "one man becomes men" */
+  function rowText(el) {
+    var parts = [];
+    each(el.childNodes, function (n) {
+      var t = clean(n.textContent);
+      if (!t) { return; }
+      if (t === "\u2192") { t = "becomes"; }
+      else if (t === "+") { t = "plus"; }
+      else if (t === "=") { t = "makes"; }
+      parts.push(t);
+    });
+    return parts.join(" ");
+  }
+
+  function questionText(qEl) {
+    var qt = qEl.querySelector(".qt");
+    var words = [];
+    each(qEl.querySelectorAll(".opts button"), function (b) {
+      words.push(b.getAttribute("data-text") || clean(b.textContent));
+    });
+    var stem = qt ? clean(qt.textContent) : "";
+    if (!words.length) { return stem; }
+    return stem + " Is it: " + words.join(", or ") + "?";
+  }
+
+  /* ================= wire up the questions ================= */
+  var progress = {};
+
+  function setScore(key, done, total) {
+    each(document.querySelectorAll('[data-score="' + key + '"]'), function (el) {
+      el.innerHTML = done + " of " + total + " correct";
+      el.className = (done === total && total > 0) ? "score all" : "score";
     });
   }
 
-  function buildQuiz(host) {
-    const key = host.dataset.quiz;
-    const items = QUIZ[key];
-    if (!items) return;
-    let done = 0;
-    updateScore(key, 0, items.length);
+  function syncReviewTotal() {
+    var sum = 0, all = 0, i, host;
+    for (i = 0; i < REVIEW_KEYS.length; i++) {
+      host = document.querySelector('[data-quiz="' + REVIEW_KEYS[i] + '"]');
+      if (!host) { continue; }
+      sum += progress[REVIEW_KEYS[i]] || 0;
+      all += host.querySelectorAll(".opts").length;
+    }
+    setScore("rall", sum, all);
+  }
 
-    items.forEach(function (item, qi) {
-      const text = item[0], opts = item[1], answer = item[2], why = item[3];
+  function isReviewKey(key) {
+    var i;
+    for (i = 0; i < REVIEW_KEYS.length; i++) { if (REVIEW_KEYS[i] === key) { return true; } }
+    return false;
+  }
 
-      const wrap = document.createElement("div");
-      wrap.className = "q";
+  each(document.querySelectorAll("[data-quiz]"), function (host) {
+    var key = host.getAttribute("data-quiz");
+    var questions = host.querySelectorAll(".q");
+    var total = questions.length;
+    progress[key] = 0;
+    setScore(key, 0, total);
 
-      const qt = document.createElement("p");
-      qt.className = "qt";
-      const span = document.createElement("span");
-      span.innerHTML = text;
-      qt.appendChild(span);
-      wrap.appendChild(qt);
+    each(questions, function (qEl, qi) {
+      var row = qEl.querySelector(".opts");
+      var fb = qEl.querySelector(".fb");
+      if (!row || !fb) { return; }
+      var answer = parseInt(row.getAttribute("data-answer"), 10);
+      var why = row.getAttribute("data-why") || "";
+      var solved = false;
 
-      const row = document.createElement("div");
-      row.className = "opts";
+      var qt = qEl.querySelector(".qt");
+      if (qt && canSpeak) {
+        qt.appendChild(speaker("Read this question out loud", function () { return questionText(qEl); }));
+      }
 
-      const fb = document.createElement("p");
-      fb.className = "fb";
-      fb.hidden = true;
-
-      opts.forEach(function (opt, oi) {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.id = key + "-" + qi + "-" + oi;
-        btn.innerHTML = '<span class="ltr">' + LETTERS[oi] + '</span>' + opt;
-        btn.addEventListener("click", function () {
-          if (row.dataset.solved === "yes") return;
+      each(row.querySelectorAll("button"), function (btn, oi) {
+        btn.onclick = function () {
+          if (solved) { return false; }
           if (oi === answer) {
-            row.dataset.solved = "yes";
-            btn.classList.add("right");
-            row.querySelectorAll("button").forEach(function (b) {
-              b.classList.add("done");
+            solved = true;
+            btn.className = "right";
+            each(row.querySelectorAll("button"), function (b) {
+              if (b === btn) { return; }
+              if (b.className.indexOf("wrong") < 0) { b.className = "done"; }
               b.disabled = true;
             });
-            btn.disabled = false;
             fb.className = "fb yes";
             fb.innerHTML = CHEERS[qi % CHEERS.length] + " " + why;
             fb.hidden = false;
-            done += 1;
-            updateScore(key, done, items.length);
-            if (reviewSets.indexOf(key) > -1) {
-              reviewState[key] = done;
-              let sum = 0, all = 0;
-              reviewSets.forEach(function (k) {
-                sum += reviewState[k] || 0;
-                all += QUIZ[k].length;
-              });
-              updateScore("rall", sum, all);
-            }
+            progress[key] = (progress[key] || 0) + 1;
+            setScore(key, progress[key], total);
+            if (isReviewKey(key)) { syncReviewTotal(); }
+            say(fb.textContent);
           } else {
-            btn.classList.add("wrong");
+            btn.className = "wrong";
             btn.disabled = true;
             fb.className = "fb no";
             fb.innerHTML = NUDGES[qi % NUDGES.length];
             fb.hidden = false;
+            say(NUDGES[qi % NUDGES.length]);
           }
-        });
-        row.appendChild(btn);
+          return false;
+        };
       });
+    });
+  });
+  syncReviewTotal();
 
-      wrap.appendChild(row);
-      wrap.appendChild(fb);
-      host.appendChild(wrap);
+  /* ================= speakers on the teaching material ================= */
+  if (canSpeak) {
+    each(document.querySelectorAll(".rulebox"), function (box) {
+      box.appendChild(speaker("Read this rule out loud", function () { return box.textContent; }));
+    });
+    each(document.querySelectorAll(".paper"), function (box) {
+      box.appendChild(speaker("Read these steps out loud", function () {
+        return clean(box.textContent).replace("Write this down", "Write this down.");
+      }));
+    });
+    each(document.querySelectorAll(".ex li"), function (li) {
+      li.appendChild(speaker("Read this example out loud", function () { return li.textContent; }));
+    });
+    each(document.querySelectorAll("section.lesson > .head"), function (head) {
+      var lesson = head.parentNode;
+      head.appendChild(speaker("Read this whole lesson out loud", function () {
+        var bits = [];
+        each(lesson.childNodes, function (n) {
+          if (n.nodeType !== 1) { return; }
+          var tag = n.tagName.toLowerCase();
+          var cls = n.className || "";
+          if (tag === "p" && cls.indexOf("subhead") < 0) { bits.push(clean(n.textContent)); }
+          else if ((" " + cls + " ").indexOf(" rulebox ") > -1) { bits.push(clean(n.textContent)); }
+          else if ((" " + cls + " ").indexOf(" head ") > -1) { bits.push(clean(n.textContent)); }
+        });
+        return bits.join(". ");
+      }));
+    });
+    /* tap a word row or a letter line to hear it */
+    each(document.querySelectorAll(".pairs > div"), function (rowEl) {
+      rowEl.className = rowEl.className ? rowEl.className + " hear" : "hear";
+      rowEl.onclick = function () { say(rowText(rowEl)); return false; };
+    });
+    each(document.querySelectorAll(".letter .row"), function (rowEl) {
+      rowEl.className = rowEl.className ? rowEl.className + " hear" : "hear";
+      rowEl.onclick = function () { say(rowEl.textContent); return false; };
     });
   }
 
-  document.querySelectorAll("[data-quiz]").forEach(buildQuiz);
-
-  // highlight the lesson you are reading in the left rail
-  const navLinks = Array.prototype.slice.call(document.querySelectorAll(".sidenav a"));
-  const navTargets = navLinks.map(function (a) { return document.querySelector(a.getAttribute("href")); });
-  let pending = 0;
+  /* ================= left-rail highlight ================= */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".sidenav a"));
+  var navTargets = [];
+  (function () {
+    var i, href;
+    for (i = 0; i < navLinks.length; i++) {
+      href = navLinks[i].getAttribute("href");
+      navTargets.push(href ? document.getElementById(href.replace("#", "")) : null);
+    }
+  })();
+  var pending = 0;
   function syncNav() {
     pending = 0;
-    let current = 0;
-    navTargets.forEach(function (sec, i) {
-      if (sec && sec.getBoundingClientRect().top <= 140) current = i;
-    });
-    navLinks.forEach(function (a, i) { a.classList.toggle("active", i === current); });
+    var current = 0, i, sec;
+    for (i = 0; i < navTargets.length; i++) {
+      sec = navTargets[i];
+      if (sec && sec.getBoundingClientRect().top <= 140) { current = i; }
+    }
+    for (i = 0; i < navLinks.length; i++) {
+      navLinks[i].className = (i === current) ? "active" : "";
+    }
   }
-  window.addEventListener("scroll", function () {
-    if (!pending) pending = requestAnimationFrame(syncNav);
-  }, { passive: true });
+  function onScroll() {
+    if (pending) { return; }
+    if (window.requestAnimationFrame) { pending = window.requestAnimationFrame(syncNav); }
+    else { pending = window.setTimeout(syncNav, 80); }
+  }
+  if (window.addEventListener) { window.addEventListener("scroll", onScroll, false); }
+  else if (window.attachEvent) { window.attachEvent("onscroll", onScroll); }
   syncNav();
-
-  updateScore("rall", 0, reviewSets.reduce(function (n, k) { return n + QUIZ[k].length; }, 0));
+})();
 </script>
 
 </body>
