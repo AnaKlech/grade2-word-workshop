@@ -9,7 +9,6 @@
   body { margin: 0; font-family: system-ui, sans-serif; font-size: 14px; background: #fafaf9; }
   img { max-width: 100%; }
   [hidden] { display: none !important; }
-</style>
 <title>Second Grade Word Workshop</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Lexend:wght@300;400;500;600&family=Patrick+Hand&display=swap">
 <style>
@@ -272,6 +271,7 @@
     color: var(--oops); font-size: 14.5px;
   }
   .hear { cursor: pointer; }
+  .hear.playing { background: var(--accent-soft); }
   .hear:hover { background: var(--accent-soft); }
 
   html { scroll-behavior: smooth; }
@@ -1496,11 +1496,20 @@
   var CHEERS = ["Yes!", "Correct!", "That's it!", "Nice work!", "Exactly!"];
   var NUDGES = ["Not quite \u2014 have another go.", "Close! Try again.", "Nope \u2014 check your paper and try again."];
   var REVIEW_KEYS = ["r1", "r2", "r3", "r4", "rc", "r5"];
+  var STOP_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5"/></svg>';
   var SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 2v2a8 8 0 0 1 0 16v2a10 10 0 0 0 0-20z"/></svg>';
 
   function each(list, fn) {
     var arr = Array.prototype.slice.call(list), i;
     for (i = 0; i < arr.length; i++) { fn(arr[i], i); }
+  }
+  function addCls(el, c) {
+    if ((" " + el.className + " ").indexOf(" " + c + " ") < 0) {
+      el.className = el.className ? el.className + " " + c : c;
+    }
+  }
+  function removeCls(el, c) {
+    el.className = clean((" " + el.className + " ").split(" " + c + " ").join(" "));
   }
   function clean(s) { return String(s || "").replace(/\s+/g, " ").replace(/^ | $/g, ""); }
 
@@ -1558,6 +1567,8 @@
 
   var queue = [];
   var startTimer = null;
+  var playingKey = null;
+  var lastCancel = 0;
   var everStarted = false;
   var noteShown = false;
   var watchArmed = false;
@@ -1574,7 +1585,34 @@
   }
 
   function stopGlow() {
-    if (playingBtn) { playingBtn.className = "speak"; playingBtn = null; }
+    if (playingBtn) {
+      if (playingBtn.className.indexOf("speak") > -1) {
+        playingBtn.className = "speak";
+        playingBtn.innerHTML = SPEAKER;
+      } else {
+        removeCls(playingBtn, "playing");
+      }
+      playingBtn = null;
+    }
+    playingKey = null;
+  }
+
+  function isTalking() {
+    return !!(queue.length || startTimer || (synth && (synth.speaking || synth.pending)));
+  }
+
+  /* second click on the same thing = stop */
+  function toggleSay(key, text, el) {
+    if (playingKey === key && isTalking()) {
+      queue = [];
+      if (startTimer) { window.clearTimeout(startTimer); startTimer = null; }
+      try { synth.cancel(); } catch (e) {}
+      lastCancel = new Date().getTime();
+      stopGlow();
+      return;
+    }
+    playingKey = key;
+    say(text, el);
   }
 
   function speakNext() {
@@ -1602,13 +1640,24 @@
     var parts = chunkText(text);
     if (!parts.length) { return; }
     if (startTimer) { window.clearTimeout(startTimer); startTimer = null; }
-    var busy = synth.speaking || synth.pending;
+    var busy = synth.speaking || synth.pending || (new Date().getTime() - lastCancel < 400);
     queue = parts;
+    var keepKey = playingKey;
     stopGlow();
-    if (btn) { btn.className = "speak playing"; playingBtn = btn; }
+    playingKey = keepKey;
+    if (btn) {
+      playingBtn = btn;
+      if (btn.className.indexOf("speak") > -1) {
+        btn.className = "speak playing";
+        btn.innerHTML = STOP_ICON;
+      } else {
+        addCls(btn, "playing");
+      }
+    }
     if (busy) {
       try { synth.cancel(); } catch (e) {}
-      startTimer = window.setTimeout(function () { startTimer = null; speakNext(); }, 150);
+      lastCancel = new Date().getTime();
+      startTimer = window.setTimeout(function () { startTimer = null; speakNext(); }, 200);
     } else {
       speakNext();
     }
@@ -1630,7 +1679,7 @@
     b.innerHTML = SPEAKER;
     b.onclick = function (e) {
       if (e && e.stopPropagation) { e.stopPropagation(); }
-      say(getText(), b);
+      toggleSay(b, getText(), b);
       return false;
     };
     return b;
@@ -1772,11 +1821,11 @@
     /* tap a word row or a letter line to hear it */
     each(document.querySelectorAll(".pairs > div"), function (rowEl) {
       rowEl.className = rowEl.className ? rowEl.className + " hear" : "hear";
-      rowEl.onclick = function () { say(rowText(rowEl)); return false; };
+      rowEl.onclick = function () { toggleSay(rowEl, rowText(rowEl), rowEl); return false; };
     });
     each(document.querySelectorAll(".letter .row"), function (rowEl) {
       rowEl.className = rowEl.className ? rowEl.className + " hear" : "hear";
-      rowEl.onclick = function () { say(rowEl.textContent); return false; };
+      rowEl.onclick = function () { toggleSay(rowEl, rowEl.textContent, rowEl); return false; };
     });
   }
 
