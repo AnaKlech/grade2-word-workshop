@@ -118,7 +118,7 @@ details.adult p{margin-top:10px}
 .w-desc{font-weight:600;color:var(--ok-ink);background:var(--ok-bg);padding:1px 6px;border-radius:5px}
 .trap{background:var(--teach-bg);border-left:3px solid var(--teach-line);border-radius:0 10px 10px 0;
   padding:12px 14px;margin-bottom:14px;font-size:14.5px;line-height:1.65;color:var(--teach-ink)}
-.trap strong{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;color:var(--teach-line)}
+.trap .box-label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;color:var(--teach-line)}
 .question-text{font-size:17px;font-weight:600;line-height:1.5;margin-bottom:6px}
 .sentence{font-size:19px;line-height:1.6;background:var(--surface);border:1px solid var(--line);
   border-radius:12px;padding:14px 18px;margin-bottom:14px}
@@ -157,7 +157,7 @@ details.adult p{margin-top:10px}
 
 /* ---- feedback + nav ---- */
 .feedback-box{border-radius:11px;padding:14px 16px;margin-bottom:14px;font-size:15px;line-height:1.65;border:1px solid}
-.feedback-box strong{display:block;font-weight:600;margin-bottom:4px}
+.feedback-box .box-label{display:block;font-weight:600;margin-bottom:4px}
 .fb-correct{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok-ink)}
 .fb-wrong{background:var(--no-bg);border-color:var(--no-line);color:var(--no-ink)}
 .nav-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}
@@ -227,8 +227,8 @@ var PARTS = [
         teachTitle:'Three jobs, three kinds of word',
         teach:[
           'Some words <span class="w-name">name</span> something. A person, an animal, a place or a thing: <strong>dog, tail, car, street</strong>.',
-          'Some words are an <span class="w-act">action</span>. They tell you what someone or something does: <strong>wagged, moved, jumped</strong>.',
-          'Some words <span class="w-desc">describe</span>. They do not name anything and they do not do anything. They tell you more about another word: <strong>happy, slowly, green</strong>.'
+          'Some words show an <span class="w-act">action</span> &mdash; they tell you what someone or something does: <strong>wagged, moved, jumped</strong>.',
+          'Some words <span class="w-desc">describe</span> &mdash; they do not name anything and they do not do anything. They tell you more about another word: <strong>happy, slowly, green</strong>.'
         ],
         trap:'A describing word is never the thing, and never the action. In <em>The happy dog wagged its tail</em>, the thing is <strong>dog</strong>, the action is <strong>wagged</strong>, and the describing word is <strong>happy</strong>.',
         prompt:'Give each word its job.',
@@ -636,9 +636,9 @@ function teachBlocks(item){
     html += '</div>';
   }
   if (item.trap){
-    html += '<div class="trap"><strong>Watch out</strong>' + item.trap + '</div>';
+    html += '<div class="trap"><strong class="box-label">Watch out</strong>' + item.trap + '</div>';
   } else if (item.coach){
-    html += '<div class="trap"><strong>How to work it out</strong>' + item.coach + '</div>';
+    html += '<div class="trap"><strong class="box-label">How to work it out</strong>' + item.coach + '</div>';
   }
   return html;
 }
@@ -682,7 +682,7 @@ function choose(i){
       opts[k].disabled = true;
       opts[k].className = 'option-btn ' + (k === i ? 'correct' : 'dimmed');
     }
-    el('fb').innerHTML = '<div class="feedback-box fb-correct"><strong>Correct</strong>' +
+    el('fb').innerHTML = '<div class="feedback-box fb-correct"><strong class="box-label">Correct</strong>' +
       item.explanations[i] + '</div>';
     skillScores[item.skill].push(attempts === 1 ? 1 : 0);
     el('bn').disabled = false;
@@ -690,7 +690,7 @@ function choose(i){
   } else {
     opts[i].className = 'option-btn wrong';
     opts[i].disabled = true;
-    el('fb').innerHTML = '<div class="feedback-box fb-wrong"><strong>Not that one &mdash; try again</strong>' +
+    el('fb').innerHTML = '<div class="feedback-box fb-wrong"><strong class="box-label">Not that one &mdash; try again</strong>' +
       item.explanations[i] + '</div>';
     el('ac').innerHTML = 'Try ' + attempts + '. Read the hint, then pick again.';
   }
@@ -749,7 +749,7 @@ function finishSort(){
   var allFirst = true;
   for (var s = 0; s < sortState.length; s++){ if (!sortState[s].firstTry) allFirst = false; }
   skillScores[item.skill].push(allFirst ? 1 : 0);
-  el('fb').innerHTML = '<div class="feedback-box fb-correct"><strong>All done</strong>' + item.done + '</div>';
+  el('fb').innerHTML = '<div class="feedback-box fb-correct"><strong class="box-label">All done</strong>' + item.done + '</div>';
   el('bn').disabled = false;
   el('ac').innerHTML = '';
 }
