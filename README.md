@@ -19,3 +19,25 @@ speech engine — no account, no API key, no network call.
 appear even if JavaScript is blocked or broken; the script is ES5 only.
 
 Single self-contained `index.html` — no build step.
+
+## Word jobs and word parts
+
+`word-jobs.html` — a second, shorter practice, built after the 16 October test when
+adjectives and adverbs came back wrong again.
+
+| Part | What it covers | Questions |
+| --- | --- | --- |
+| 1. Word jobs and adjectives | Naming vs action vs describing words; finding the adjective | 6 |
+| 2. Adverbs, and choosing between them | Finding the adverb; adjective or adverb? | 7 |
+| 3. The prefix re- | re- means again, taught against pre- | 3 |
+| 4. Compound words | Splitting a word into two real words | 3 |
+
+Parts 1 and 2 teach the naming / action / describing contrast head on: on both tests the
+describing word was passed over in favour of the word it describes. Two of the nineteen
+questions are word sorters — tap a word, give it its job — and the rest are multiple
+choice, where every wrong answer names the trap instead of repeating the rule.
+
+Each part scores separately on first try, so a retry does not hide a gap. Progress is kept
+per part in the browser, so it can be done one part per sitting.
+
+ES5 only, like `index.html`. No student data.

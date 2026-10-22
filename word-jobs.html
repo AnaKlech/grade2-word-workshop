@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Word Jobs and Word Parts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!--
+  Coach notes (not shown to the student):
+  Built from two Grade 2 Language gap reports, 2026-09-09 and 2026-10-16 (same student, 85% both times).
+  Recurring gap (both sittings, items q7/q8, L.2.1.E): the student picks the word being described
+  instead of the describing word. Sep: picked the NOUN ('balloon') for the adjective and the VERB
+  ('spoke') for the adverb. Oct: picked the VERB both times ('wagged', 'moved').
+  Lalilo 1418 + 1504 were assigned after the Sep test and the gap came back on 10/16. The Oct report
+  records a catalog gap: no lesson teaches the noun / verb / adjective three-way contrast with direct
+  instruction. Parts 1 and 2 of this guide do exactly that, and every wrong-answer response names the
+  trap ("that's the thing" / "that's the action") instead of restating the definition.
+  Part 3 = prefix re- (L.2.4.B, Oct q18). Part 4 = compound words (L.2.4.D, Sep q20).
+-->
+<style>
+/* Layout: one column, max 720px, cards on a warm paper ground; a single accent carries progress + primary action */
+:root{
+  --bg:#f5f4f0; --surface:#ffffff; --surface-2:#faf9f6;
+  --ink:#1a1a18; --ink-soft:#5f5e5a; --ink-faint:#8d8b84;
+  --line:rgba(0,0,0,.13); --line-soft:rgba(0,0,0,.07);
+  --accent:#534ab7; --accent-soft:#eeedfe; --accent-ink:#3c3489;
+  --ok:#1d7f5e; --ok-bg:#e8f3ec; --ok-line:#9ccbb4; --ok-ink:#12543a;
+  --no:#c13c30; --no-bg:#fbeceb; --no-line:#eeaba5; --no-ink:#8a2a22;
+  --teach-bg:#e9f0fa; --teach-line:#3a6ea5; --teach-ink:#1f4a76;
+  --warn:#b4761a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1a1917; --surface:#242220; --surface-2:#2b2927;
+    --ink:#f2efe9; --ink-soft:#b6b2a9; --ink-faint:#8a867e;
+    --line:rgba(255,255,255,.16); --line-soft:rgba(255,255,255,.09);
+    --accent:#a79dfb; --accent-soft:#2e2a52; --accent-ink:#cdc6ff;
+    --ok:#6fcba4; --ok-bg:#1c3a2d; --ok-line:#3d7a5e; --ok-ink:#aee5c9;
+    --no:#f09086; --no-bg:#40231f; --no-line:#8a4a41; --no-ink:#f6bfb8;
+    --teach-bg:#1f2e3f; --teach-line:#6fa3d6; --teach-ink:#bcd8f2;
+    --warn:#e0a84e;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1a1917; --surface:#242220; --surface-2:#2b2927;
+  --ink:#f2efe9; --ink-soft:#b6b2a9; --ink-faint:#8a867e;
+  --line:rgba(255,255,255,.16); --line-soft:rgba(255,255,255,.09);
+  --accent:#a79dfb; --accent-soft:#2e2a52; --accent-ink:#cdc6ff;
+  --ok:#6fcba4; --ok-bg:#1c3a2d; --ok-line:#3d7a5e; --ok-ink:#aee5c9;
+  --no:#f09086; --no-bg:#40231f; --no-line:#8a4a41; --no-ink:#f6bfb8;
+  --teach-bg:#1f2e3f; --teach-line:#6fa3d6; --teach-ink:#bcd8f2;
+  --warn:#e0a84e;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-size:16px; line-height:1.6; -webkit-text-size-adjust:100%;
+}
+.app{
+  max-width:720px; margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 64px;
+}
+
+/* ---- header + progress ---- */
+.header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.mark{width:40px;height:40px;border-radius:10px;background:var(--accent-soft);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;flex-shrink:0}
+.header h1{font-size:17px;font-weight:600;line-height:1.3}
+.header p{font-size:13px;color:var(--ink-soft)}
+.progress-wrap{background:var(--line-soft);border-radius:4px;height:7px;overflow:hidden;margin-bottom:6px}
+.progress-fill{height:7px;border-radius:4px;background:var(--accent);transition:width .35s ease;width:0}
+.progress-label{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-soft);margin-bottom:22px}
+
+/* ---- start screen ---- */
+.intro{font-size:15.5px;color:var(--ink-soft);margin-bottom:20px;max-width:58ch}
+.part-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.part-card{display:flex;align-items:flex-start;gap:14px;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+  cursor:pointer;color:var(--ink);font:inherit;transition:border-color .15s, transform .08s}
+.part-card:hover{border-color:var(--accent)}
+.part-card:active{transform:translateY(1px)}
+.part-num{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;margin-top:1px}
+.part-body{flex:1;min-width:0}
+.part-body h3{font-size:16px;font-weight:600;margin-bottom:3px}
+.part-body p{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+.part-meta{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px;color:var(--ink-faint)}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600}
+.pill-todo{background:var(--line-soft);color:var(--ink-soft)}
+.pill-done{background:var(--ok-bg);color:var(--ok-ink)}
+details.adult{background:var(--surface-2);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;font-size:13.5px;color:var(--ink-soft);line-height:1.65}
+details.adult summary{cursor:pointer;font-weight:600;color:var(--ink);font-size:13.5px;list-style:none}
+details.adult summary::-webkit-details-marker{display:none}
+details.adult summary::before{content:'▸ ';color:var(--ink-faint)}
+details.adult[open] summary::before{content:'▾ '}
+details.adult ol{margin:10px 0 0 18px;display:flex;flex-direction:column;gap:7px}
+details.adult p{margin-top:10px}
+
+/* ---- teaching + question blocks ---- */
+.skill-badge{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:5px 11px;
+  border-radius:20px;margin-bottom:14px;background:var(--accent-soft);color:var(--accent-ink)}
+.skill-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex-shrink:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.card-title{font-size:11.5px;font-weight:600;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.card p{font-size:15.5px;line-height:1.7;margin-bottom:9px}
+.card p:last-child{margin-bottom:0}
+.card ul{margin:0 0 9px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.card li{font-size:15.5px;line-height:1.6;padding-left:18px;position:relative}
+.card li::before{content:'';position:absolute;left:4px;top:.65em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.w-name{font-weight:600;color:var(--accent-ink);background:var(--accent-soft);padding:1px 6px;border-radius:5px}
+.w-act{font-weight:600;color:var(--no-ink);background:var(--no-bg);padding:1px 6px;border-radius:5px}
+.w-desc{font-weight:600;color:var(--ok-ink);background:var(--ok-bg);padding:1px 6px;border-radius:5px}
+.trap{background:var(--teach-bg);border-left:3px solid var(--teach-line);border-radius:0 10px 10px 0;
+  padding:12px 14px;margin-bottom:14px;font-size:14.5px;line-height:1.65;color:var(--teach-ink)}
+.trap strong{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;color:var(--teach-line)}
+.question-text{font-size:17px;font-weight:600;line-height:1.5;margin-bottom:6px}
+.sentence{font-size:19px;line-height:1.6;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:14px 18px;margin-bottom:14px}
+
+/* ---- options ---- */
+.options{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.option-btn{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:13px 15px;
+  cursor:pointer;font:inherit;font-size:16px;color:var(--ink);line-height:1.5;transition:border-color .15s,background .15s}
+.option-btn:hover:not(:disabled){border-color:var(--accent)}
+.option-btn:disabled{cursor:default}
+.opt-letter{width:26px;height:26px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink-soft);flex-shrink:0}
+.option-btn.correct{background:var(--ok-bg);border-color:var(--ok)}
+.option-btn.correct .opt-letter{background:var(--ok);border-color:var(--ok);color:#fff}
+.option-btn.wrong{background:var(--no-bg);border-color:var(--no)}
+.option-btn.wrong .opt-letter{background:var(--no);border-color:var(--no);color:#fff}
+.option-btn.dimmed{opacity:.42}
+
+/* ---- word-job sorter ---- */
+.sorter{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.sort-row{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.sort-row.done{background:var(--ok-bg);border-color:var(--ok-line)}
+.sort-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sort-word{font-size:18px;font-weight:600}
+.sort-tick{font-size:13px;font-weight:600;color:var(--ok-ink)}
+.job-row{display:flex;flex-wrap:wrap;gap:8px}
+.job-btn{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 13px;
+  font:inherit;font-size:14.5px;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.job-btn:hover:not(:disabled){border-color:var(--accent)}
+.job-btn:disabled{cursor:default}
+.job-btn.picked-ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.job-btn.picked-no{background:var(--no-bg);border-color:var(--no);color:var(--no-ink);opacity:.75}
+.sort-hint{margin-top:10px;font-size:14px;line-height:1.6;color:var(--no-ink);background:var(--no-bg);
+  border:1px solid var(--no-line);border-radius:9px;padding:10px 12px}
+
+/* ---- feedback + nav ---- */
+.feedback-box{border-radius:11px;padding:14px 16px;margin-bottom:14px;font-size:15px;line-height:1.65;border:1px solid}
+.feedback-box strong{display:block;font-weight:600;margin-bottom:4px}
+.fb-correct{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok-ink)}
+.fb-wrong{background:var(--no-bg);border-color:var(--no-line);color:var(--no-ink)}
+.nav-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}
+.attempt-count{font-size:13px;color:var(--ink-faint)}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 24px;
+  font:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.btn:hover:not(:disabled){opacity:.88}
+.btn:disabled{opacity:.4;cursor:default}
+.btn-quiet{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
+.btn-quiet:hover{opacity:1;border-color:var(--accent);color:var(--accent)}
+.back-row{display:flex;margin-bottom:12px}
+.btn-back{background:transparent;border:1px solid var(--line);border-radius:9px;padding:8px 14px;
+  font:inherit;font-size:13.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;
+  transition:border-color .15s,color .15s}
+.btn-back:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---- completion ---- */
+.completion{text-align:center;padding:28px 0 10px}
+.score-ring{width:118px;height:118px;border-radius:50%;border:5px solid var(--ok);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;margin:0 auto 22px}
+.score-ring .big{font-size:32px;font-weight:600;line-height:1.1}
+.score-ring .small{font-size:12px;color:var(--ink-soft)}
+.completion h2{font-size:21px;font-weight:600;margin-bottom:6px}
+.completion .sub{font-size:15px;color:var(--ink-soft);margin-bottom:22px}
+.skill-summary{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 16px;margin-bottom:20px;text-align:left}
+.skill-row-sum{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:14.5px}
+.skill-row-sum:last-child{border-bottom:none}
+.sum-label{flex:1;min-width:0}
+.sum-score{font-weight:600;font-variant-numeric:tabular-nums}
+.sum-ok{color:var(--ok)}.sum-warn{color:var(--warn)}.sum-bad{color:var(--no)}
+.done-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="mark">W</div>
+    <div>
+      <h1>Word jobs and word parts</h1>
+      <p id="headerSub">Language practice &middot; Grade 2</p>
+    </div>
+  </div>
+  <div id="progressBlock" hidden>
+    <div class="back-row"><button class="btn-back" onclick="renderStart()">&larr; All parts</button></div>
+    <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label"><span id="progressText"></span><span id="sectionLabel"></span></div>
+  </div>
+  <div id="screen"></div>
+</div>
+
+<script>
+/* ============================ CONTENT ============================ */
+
+var JOBS3 = ['Naming word', 'Action word', 'Describing word'];
+var JOBS4 = ['Naming word', 'Action word', 'Adjective', 'Adverb'];
+
+var PARTS = [
+  {
+    title: 'Word jobs and adjectives',
+    blurb: 'Naming words, action words, and the word that describes a thing.',
+    skills: ['Every word has a job', 'Adjectives describe a thing'],
+    items: [
+
+      { skill:0, kind:'sort',
+        teachTitle:'Three jobs, three kinds of word',
+        teach:[
+          'Some words <span class="w-name">name</span> something. A person, an animal, a place or a thing: <strong>dog, tail, car, street</strong>.',
+          'Some words are an <span class="w-act">action</span>. They tell you what someone or something does: <strong>wagged, moved, jumped</strong>.',
+          'Some words <span class="w-desc">describe</span>. They do not name anything and they do not do anything. They tell you more about another word: <strong>happy, slowly, green</strong>.'
+        ],
+        trap:'A describing word is never the thing, and never the action. In <em>The happy dog wagged its tail</em>, the thing is <strong>dog</strong>, the action is <strong>wagged</strong>, and the describing word is <strong>happy</strong>.',
+        prompt:'Give each word its job.',
+        sentence:'The green frog jumped high.',
+        jobs:JOBS3,
+        targets:[
+          { word:'frog', job:0, hints:{
+            1:'Is &ldquo;frog&rdquo; something you can do? You cannot frog. It names an animal.',
+            2:'&ldquo;Frog&rdquo; does not tell you more about another word &mdash; it <em>is</em> the thing the sentence is about.' } },
+          { word:'jumped', job:1, hints:{
+            0:'&ldquo;Jumped&rdquo; is not a person, a place or a thing. It is something the frog did.',
+            2:'&ldquo;Jumped&rdquo; is the action itself. A describing word does not do anything &mdash; it tells you more about another word.' } },
+          { word:'green', job:2, hints:{
+            0:'Is &ldquo;green&rdquo; a thing you can point to here? It tells you what the frog looks like.',
+            1:'You cannot green. &ldquo;Green&rdquo; is not something the frog did &mdash; it tells you what kind of frog.' } }
+        ],
+        done:'All three jobs are right. Naming word, action word, describing word &mdash; three different jobs.'
+      },
+
+      { skill:0, kind:'mcq',
+        coach:'Find the action first: ask who or what the sentence is about, then ask what they did.',
+        sentence:'The old truck rolled down the hill.',
+        question:'Which word is the <strong>action word</strong>?',
+        options:['truck','old','rolled','hill'],
+        correct:2,
+        explanations:[
+          '&ldquo;Truck&rdquo; is a naming word &mdash; it is the thing the sentence is about. Now ask: what did the truck <em>do</em>?',
+          '&ldquo;Old&rdquo; tells you what kind of truck. That is describing, not doing. Ask: what did the truck <em>do</em>?',
+          'Yes. &ldquo;Rolled&rdquo; is what the truck did, so it is the action word.',
+          '&ldquo;Hill&rdquo; is a naming word too &mdash; it names a place. Ask: what did the truck <em>do</em>?'
+        ] },
+
+      { skill:0, kind:'mcq',
+        coach:'Cross out the things and cross out the action. The word left over is the describing word.',
+        sentence:'The old truck rolled down the hill.',
+        question:'Which word is the <strong>describing word</strong>?',
+        options:['truck','rolled','old','hill'],
+        correct:2,
+        explanations:[
+          '&ldquo;Truck&rdquo; is the thing the sentence is about. The describing word tells you what <em>kind</em> of truck.',
+          '&ldquo;Rolled&rdquo; is what the truck did. A describing word does not do anything &mdash; it tells you more about another word.',
+          'Yes. &ldquo;Old&rdquo; tells you what kind of truck. It is not the thing and it is not the action.',
+          '&ldquo;Hill&rdquo; names a place. Look for the word that tells you what kind of truck.'
+        ] },
+
+      { skill:1, kind:'mcq',
+        teachTitle:'How to find the adjective',
+        teach:[
+          'An <strong>adjective</strong> is a describing word for a naming word. It answers <strong>What kind? Which one? How many?</strong>',
+          'Do it in three steps. <strong>1.</strong> Find the naming word. <strong>2.</strong> Ask &ldquo;What kind of ___?&rdquo; <strong>3.</strong> The word that answers is the adjective.',
+          'In <em>The happy dog wagged its tail</em>: the naming word is <strong>dog</strong>. What kind of dog? A <strong>happy</strong> dog. So <strong>happy</strong> is the adjective.'
+        ],
+        trap:'Two words will try to trick you. The adjective is <strong>not the thing itself</strong> (not <em>dog</em>) and it is <strong>not the action</strong> (not <em>wagged</em>).',
+        sentence:'The yellow balloon floated away.',
+        question:'Which word is the <strong>adjective</strong>?',
+        options:['balloon','yellow','floated','away'],
+        correct:1,
+        explanations:[
+          '&ldquo;Balloon&rdquo; is the thing that floated &mdash; the naming word. The adjective is the word that tells you what <em>kind</em> of balloon.',
+          'Yes. What kind of balloon? A <strong>yellow</strong> one. &ldquo;Yellow&rdquo; describes the naming word, so it is the adjective.',
+          '&ldquo;Floated&rdquo; is what the balloon did &mdash; the action word. The adjective describes the balloon; it does not do anything.',
+          '&ldquo;Away&rdquo; tells you <em>where</em> it floated, so it describes the action. Which word tells you what kind of balloon?'
+        ] },
+
+      { skill:1, kind:'mcq',
+        coach:'Adjectives can also tell you how many. Ask &ldquo;How many horses?&rdquo;',
+        sentence:'Three brown horses ran in the field.',
+        question:'Which adjective tells you <strong>how many</strong>?',
+        options:['horses','three','brown','ran'],
+        correct:1,
+        explanations:[
+          '&ldquo;Horses&rdquo; is the naming word &mdash; it is what there are three of. Which word tells you how many?',
+          'Yes. &ldquo;Three&rdquo; tells you how many horses, so it is an adjective. Adjectives answer <em>what kind, which one</em> or <em>how many</em>.',
+          '&ldquo;Brown&rdquo; is an adjective too, but it tells you what <em>colour</em> the horses are, not how many.',
+          '&ldquo;Ran&rdquo; is what the horses did &mdash; the action word.'
+        ] },
+
+      { skill:1, kind:'mcq',
+        coach:'There are two adjectives here. Read the question again and check which thing it asks about.',
+        sentence:'My little sister lost a red mitten.',
+        question:'Which word describes the <strong>mitten</strong>?',
+        options:['sister','little','lost','red'],
+        correct:3,
+        explanations:[
+          '&ldquo;Sister&rdquo; is a naming word &mdash; a person. Ask: what kind of <em>mitten</em>?',
+          '&ldquo;Little&rdquo; is an adjective, but it describes the sister, not the mitten. Ask: what kind of <em>mitten</em>?',
+          '&ldquo;Lost&rdquo; is what happened &mdash; the action word.',
+          'Yes. What kind of mitten? A <strong>red</strong> one. Two adjectives can live in one sentence, so always check which thing the question asks about.'
+        ] }
+    ]
+  },
+
+  {
+    title: 'Adverbs, and choosing between them',
+    blurb: 'The word that describes an action, and how to tell it from an adjective.',
+    skills: ['Adverbs describe an action', 'Adjective or adverb?'],
+    items: [
+
+      { skill:0, kind:'mcq',
+        teachTitle:'How to find the adverb',
+        teach:[
+          'An <strong>adverb</strong> is a describing word for an action word. It answers <strong>How? When? Where?</strong>',
+          'Three steps again. <strong>1.</strong> Find the action word. <strong>2.</strong> Ask &ldquo;How did they ___?&rdquo; <strong>3.</strong> The word that answers is the adverb.',
+          'A good clue: lots of adverbs end in <strong>-ly</strong> &mdash; slowly, softly, quickly, loudly.'
+        ],
+        trap:'Here is the trap that catches almost everyone. The adverb is <strong>not the action word</strong>. In <em>The car moved slowly</em>, <strong>moved</strong> is the action and <strong>slowly</strong> is the word that tells you how it moved.',
+        sentence:'They spoke softly in the library.',
+        question:'Which word is the <strong>adverb</strong>?',
+        options:['they','spoke','softly','library'],
+        correct:2,
+        explanations:[
+          '&ldquo;They&rdquo; is who the sentence is about. Which word tells you <em>how</em> they spoke?',
+          '&ldquo;Spoke&rdquo; is the action &mdash; it is what they did. The adverb is the word that tells you <em>how</em> they spoke.',
+          'Yes. How did they speak? <strong>Softly</strong>. It describes the action, and it ends in -ly.',
+          '&ldquo;Library&rdquo; is a naming word &mdash; it names a place. Which word tells you how they spoke?'
+        ] },
+
+      { skill:0, kind:'mcq',
+        coach:'Find the action word first, then ask &ldquo;How did the car move?&rdquo;',
+        sentence:'The car moved slowly down the street.',
+        question:'Which word is the <strong>adverb</strong>?',
+        options:['car','moved','slowly','street'],
+        correct:2,
+        explanations:[
+          '&ldquo;Car&rdquo; is the thing that moved &mdash; a naming word.',
+          '&ldquo;Moved&rdquo; is the action itself. You are looking for the word that describes the action, not the action.',
+          'Yes. How did the car move? <strong>Slowly</strong>. That is the adverb.',
+          '&ldquo;Street&rdquo; names a place. Ask: <em>how</em> did the car move?'
+        ] },
+
+      { skill:0, kind:'mcq',
+        coach:'Not every adverb ends in -ly. Some tell you when, and some tell you where.',
+        sentence:'Dad will cook dinner later.',
+        question:'Which word is the <strong>adverb</strong>?',
+        options:['dad','cook','dinner','later'],
+        correct:3,
+        explanations:[
+          '&ldquo;Dad&rdquo; is a naming word &mdash; a person.',
+          '&ldquo;Cook&rdquo; is the action. The adverb describes the action.',
+          '&ldquo;Dinner&rdquo; is a naming word &mdash; a thing.',
+          'Yes. &ldquo;Later&rdquo; tells you <em>when</em> he will cook. Adverbs answer how, when or where &mdash; so they do not all end in -ly.'
+        ] },
+
+      { skill:1, kind:'sort',
+        teachTitle:'Ask what the word describes',
+        teach:[
+          'Both are describing words. The only difference is <strong>what they describe</strong>.',
+          'Describes a <span class="w-name">thing</span> &rarr; it is an <strong>adjective</strong>. <em>The quick runner.</em>',
+          'Describes an <span class="w-act">action</span> &rarr; it is an <strong>adverb</strong>. <em>The runner ran quickly.</em>'
+        ],
+        trap:'Ask yourself one question: is this word telling me about a <em>thing</em>, or about what someone <em>did</em>?',
+        prompt:'Four words, four jobs. Give each word its job.',
+        sentence:'The quick runner ran quickly.',
+        jobs:JOBS4,
+        targets:[
+          { word:'runner', job:0, hints:{
+            1:'&ldquo;Runner&rdquo; is not something you do &mdash; it is the person doing it.',
+            2:'&ldquo;Runner&rdquo; is the thing being described, not the describing word. What kind of runner?',
+            3:'&ldquo;Runner&rdquo; names a person. An adverb describes an action.' } },
+          { word:'ran', job:1, hints:{
+            0:'&ldquo;Ran&rdquo; is not a person, place or thing.',
+            2:'An adjective describes a thing. &ldquo;Ran&rdquo; is what the runner did.',
+            3:'Careful &mdash; this is the big trap. &ldquo;Ran&rdquo; <em>is</em> the action. The adverb is the word that tells you how he ran.' } },
+          { word:'quick', job:2, hints:{
+            0:'&ldquo;Quick&rdquo; does not name anything. It tells you about the runner.',
+            1:'You cannot quick. It is not an action.',
+            3:'Close. &ldquo;Quick&rdquo; describes the runner, and a runner is a thing &mdash; so it is the other kind of describing word.' } },
+          { word:'quickly', job:3, hints:{
+            0:'&ldquo;Quickly&rdquo; does not name anything.',
+            1:'&ldquo;Quickly&rdquo; is not the action &mdash; it tells you about the action.',
+            2:'Close. &ldquo;Quickly&rdquo; tells you <em>how he ran</em>, so it describes the action, not the runner.' } }
+        ],
+        done:'That is the whole idea: <strong>quick</strong> describes the runner, <strong>quickly</strong> describes the running.'
+      },
+
+      { skill:1, kind:'mcq',
+        coach:'Two words look almost the same here. Check what each one describes.',
+        sentence:'The loud bell rang loudly.',
+        question:'Which word is the <strong>adverb</strong>?',
+        options:['loud','bell','rang','loudly'],
+        correct:3,
+        explanations:[
+          '&ldquo;Loud&rdquo; describes the bell, and a bell is a thing. That makes it the other kind of describing word.',
+          '&ldquo;Bell&rdquo; is the naming word &mdash; the thing that rang.',
+          '&ldquo;Rang&rdquo; is the action. The adverb describes the action.',
+          'Yes. How did the bell ring? <strong>Loudly</strong>. It describes the action, so it is the adverb.'
+        ] },
+
+      { skill:1, kind:'mcq',
+        coach:'Ask what the missing word has to describe: the baby, or the sleeping?',
+        sentence:'The baby slept ______ .',
+        question:'Which word belongs in the blank?',
+        options:['quiet','quietly','quick','soft'],
+        correct:1,
+        explanations:[
+          '&ldquo;Quiet&rdquo; describes a thing &mdash; a quiet baby, a quiet room. Here the word has to describe the action <em>slept</em>.',
+          'Yes. The blank has to tell you <em>how</em> the baby slept, and that is an adverb.',
+          '&ldquo;Quick&rdquo; describes a thing, and it also does not fit the meaning. The word has to tell you how the baby slept.',
+          '&ldquo;Soft&rdquo; describes a thing &mdash; a soft blanket. The word has to describe the action.'
+        ] },
+
+      { skill:1, kind:'mcq',
+        coach:'A bird is a thing. So which kind of describing word do you need?',
+        sentence:'We saw a ______ bird.',
+        question:'Which word belongs in the blank?',
+        options:['loudly','loud','quickly','softly'],
+        correct:1,
+        explanations:[
+          '&ldquo;Loudly&rdquo; describes an action, not a thing. &ldquo;Bird&rdquo; is a thing.',
+          'Yes. The blank describes the bird, and a bird is a thing &mdash; so you need an adjective.',
+          '&ldquo;Quickly&rdquo; describes an action. The blank goes in front of a naming word.',
+          '&ldquo;Softly&rdquo; describes an action. The blank goes in front of a naming word.'
+        ] }
+    ]
+  },
+
+  {
+    title: 'The prefix re-',
+    blurb: 'A small word part at the front that changes what a word means.',
+    skills: ['re- means again'],
+    items: [
+
+      { skill:0, kind:'mcq',
+        teachTitle:'What a prefix does',
+        teach:[
+          'A <strong>prefix</strong> is a small word part added to the <strong>front</strong> of a word. It changes the meaning.',
+          'You already know one: <strong>pre-</strong> means <em>before</em>. <strong>pre</strong>pay = pay before.',
+          'Here is the new one: <strong>re-</strong> means <em>again</em>. <strong>re</strong>tell = tell again. <strong>re</strong>do = do again. <strong>re</strong>read = read again. <strong>re</strong>build = build again.'
+        ],
+        trap:'The prefix never disappears. <em>Restart</em> does not mean the same as <em>start</em>. Read the base word, then add the prefix meaning on top of it.',
+        question:'What does <strong>restart</strong> mean?',
+        options:['to start','to stop','to start again','to start slowly'],
+        correct:2,
+        explanations:[
+          'That is the base word on its own. But &ldquo;restart&rdquo; has a prefix on the front, and the prefix adds something. What does re- mean?',
+          '&ldquo;Stop&rdquo; is the opposite of start. re- does not mean <em>not</em> or <em>opposite</em>.',
+          'Yes. re- means <em>again</em>, and the base word is <em>start</em>. Put them together: to start again.',
+          'No prefix means <em>slowly</em>. Think about what re- adds to the base word.'
+        ] },
+
+      { skill:0, kind:'mcq',
+        coach:'Split the word in two: the prefix at the front, then the base word.',
+        sentence:'Mom had to repaint the fence.',
+        question:'What does <strong>repaint</strong> mean?',
+        options:['paint before','paint again','not paint','paint quickly'],
+        correct:1,
+        explanations:[
+          '&ldquo;Before&rdquo; is what <em>pre-</em> means. This word starts with a different prefix.',
+          'Yes. re- + paint = paint again. The fence was painted once already.',
+          'The prefix that means <em>not</em> is <em>un-</em>, as in unhappy. This one is different.',
+          'No prefix means <em>quickly</em>. Think about what re- adds.'
+        ] },
+
+      { skill:0, kind:'mcq',
+        coach:'Check the front of each word. Which prefix means again?',
+        question:'Which word means <strong>to read again</strong>?',
+        options:['preread','reread','unread','reading'],
+        correct:1,
+        explanations:[
+          'pre- means <em>before</em>, so that would be reading it before. Which prefix means <em>again</em>?',
+          'Yes. re- + read = read again.',
+          'un- means <em>not</em>, so &ldquo;unread&rdquo; means not read yet. Which prefix means <em>again</em>?',
+          '&ldquo;Reading&rdquo; has an ending (-ing), not a prefix. A prefix goes at the <em>front</em> of the word.'
+        ] }
+    ]
+  },
+
+  {
+    title: 'Compound words',
+    blurb: 'One word made of two smaller words joined together.',
+    skills: ['Splitting a word in two'],
+    items: [
+
+      { skill:0, kind:'mcq',
+        teachTitle:'Two words stuck together',
+        teach:[
+          'A <strong>compound word</strong> is one word made of <strong>two smaller words</strong> joined together.',
+          '<strong>flash</strong> + <strong>light</strong> = flashlight. <strong>bird</strong> + <strong>house</strong> = birdhouse. <strong>note</strong> + <strong>book</strong> = notebook.',
+          'The test is always the same: <strong>can I split this word into two real words?</strong> If yes, it is a compound word.'
+        ],
+        trap:'Watch out for words that just <em>go together</em> in your head. <em>Dark</em> makes you think of a flashlight, but that is not the test. You cannot split &ldquo;dark&rdquo; into two words, so it is not a compound word.',
+        sentence:'I used a flashlight because the room was dark.',
+        question:'Which word is a <strong>compound word</strong>?',
+        options:['used','flashlight','room','dark'],
+        correct:1,
+        explanations:[
+          'Can you split &ldquo;used&rdquo; into two real words? No. Keep looking for a word with two whole words inside it.',
+          'Yes. flashlight = <strong>flash</strong> + <strong>light</strong>. Both halves are real words on their own.',
+          '&ldquo;Room&rdquo; is a naming word, but it is only one small word. You cannot split it into two.',
+          '&ldquo;Dark&rdquo; goes together with flashlight in your head, but that is not the test. Try to split &ldquo;dark&rdquo; into two real words &mdash; you cannot.'
+        ] },
+
+      { skill:0, kind:'mcq',
+        coach:'Cover up half the word with your finger. Is the half you can still see a real word on its own?',
+        question:'Which one is a <strong>compound word</strong>?',
+        options:['sunshine','sunny','summer','shining'],
+        correct:0,
+        explanations:[
+          'Yes. sunshine = <strong>sun</strong> + <strong>shine</strong>. Both halves are real words.',
+          '&ldquo;Sunny&rdquo; starts with <em>sun</em>, but <em>-ny</em> is not a word on its own. Both halves have to be real words.',
+          '&ldquo;Summer&rdquo; starts with <em>sum</em>, but <em>-mer</em> is not a word. Try a different one.',
+          '&ldquo;Shining&rdquo; is one word with an ending added (-ing), not two words joined.'
+        ] },
+
+      { skill:0, kind:'mcq',
+        coach:'Only one of these splits the word into two real words you already know.',
+        question:'<strong>Butterfly</strong> is made from which two words?',
+        options:['but + terfly','butter + fly','butt + erfly','b + utterfly'],
+        correct:1,
+        explanations:[
+          '&ldquo;But&rdquo; is a real word, but &ldquo;terfly&rdquo; is not. <em>Both</em> halves have to be real words.',
+          'Yes. butter + fly. Both halves are real words you already know.',
+          'Neither half works as the two words inside this one. Try saying each half out loud.',
+          'A single letter is not a word. Split it into two whole words.'
+        ] }
+    ]
+  }
+];
+
+/* ============================ STATE ============================ */
+
+var STORE_KEY = 'g2-word-jobs-progress';
+var partIndex = null, itemIndex = 0, attempts = 0, answered = false;
+var skillScores = {};
+var sortState = [];
+
+function el(id){ return document.getElementById(id); }
+var screenEl = el('screen');
+
+function loadProgress(){
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
+  catch (e) { return {}; }
+}
+function saveProgress(p){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(p)); } catch (e) {}
+}
+
+/* ============================ START SCREEN ============================ */
+
+function renderStart(){
+  partIndex = null;
+  el('progressBlock').hidden = true;
+  el('headerSub').innerHTML = 'Language practice &middot; Grade 2';
+
+  var saved = loadProgress();
+  var cards = '';
+  for (var i = 0; i < PARTS.length; i++){
+    var p = PARTS[i];
+    var got = saved['part' + i];
+    var pill = (got === undefined)
+      ? '<span class="pill pill-todo">Not started</span>'
+      : '<span class="pill pill-done">Done &middot; ' + got + '% first try</span>';
+    cards += '<button class="part-card" onclick="startPart(' + i + ')">' +
+      '<span class="part-num">' + (i + 1) + '</span>' +
+      '<span class="part-body">' +
+        '<h3>' + p.title + '</h3>' +
+        '<p>' + p.blurb + '</p>' +
+        '<span class="part-meta">' + pill + '<span>' + p.items.length + ' questions</span></span>' +
+      '</span></button>';
+  }
+
+  screenEl.innerHTML =
+    '<p class="intro">Four short parts. Do one part at a time &mdash; you do not have to finish them all today. ' +
+    'Every question tells you why an answer is wrong, so you can try again until you get it.</p>' +
+    '<div class="part-list">' + cards + '</div>' +
+    '<details class="adult"><summary>For the adult helping</summary>' +
+      '<p>Built from the Grade 2 Language gap reports of 9 September and 16 October 2026 (85% both times). It targets the three gaps those reports name:</p>' +
+      '<ol>' +
+        '<li><strong>Telling describing words apart from the words they describe</strong> (L.2.1.E) &mdash; the same two items were missed in both sittings. In September the student picked the noun for the adjective and the verb for the adverb; in October, the verb both times. Lalilo 1418 and 1504 were assigned after September and the gap still came back, and the October report records a catalog gap: no lesson teaches the naming / action / describing three-way contrast directly. <strong>Parts 1 and 2 do that</strong>, and every wrong answer names the trap rather than repeating the definition.</li>' +
+        '<li><strong>The prefix re- = again</strong> (L.2.4.B, October). Part 3, taught against <em>pre-</em>, which the student already knows.</li>' +
+        '<li><strong>Compound words as two joined words</strong> (L.2.4.D, September). Part 4, taught against the thematic guess the student actually made.</li>' +
+      '</ol>' +
+      '<p>One part per sitting works best. The number worth looking at is the <strong>first-try score</strong> at the end of each part, not the score after retries &mdash; retries are meant to happen here.</p>' +
+    '</details>';
+  window.scrollTo(0, 0);
+}
+
+/* ============================ PART FLOW ============================ */
+
+function startPart(i){
+  partIndex = i; itemIndex = 0; attempts = 0; answered = false;
+  skillScores = {};
+  for (var k = 0; k < PARTS[i].skills.length; k++){ skillScores[k] = []; }
+  el('progressBlock').hidden = false;
+  el('headerSub').innerHTML = 'Part ' + (i + 1) + ' &middot; ' + PARTS[i].title;
+  renderItem();
+}
+
+function currentPart(){ return PARTS[partIndex]; }
+function currentItem(){ return currentPart().items[itemIndex]; }
+
+function updateProgress(){
+  var total = currentPart().items.length;
+  el('progressFill').style.width = Math.round((itemIndex / total) * 100) + '%';
+  el('progressText').innerHTML = 'Question ' + (itemIndex + 1) + ' of ' + total;
+  el('sectionLabel').innerHTML = 'Part ' + (partIndex + 1) + ' of ' + PARTS.length;
+}
+
+function teachBlocks(item){
+  var html = '<span class="skill-badge"><span class="skill-dot"></span>' +
+    currentPart().skills[item.skill] + '</span>';
+  if (item.teach){
+    html += '<div class="card"><div class="card-title">' + item.teachTitle + '</div>';
+    for (var i = 0; i < item.teach.length; i++){ html += '<p>' + item.teach[i] + '</p>'; }
+    html += '</div>';
+  }
+  if (item.trap){
+    html += '<div class="trap"><strong>Watch out</strong>' + item.trap + '</div>';
+  } else if (item.coach){
+    html += '<div class="trap"><strong>How to work it out</strong>' + item.coach + '</div>';
+  }
+  return html;
+}
+
+function renderItem(){
+  var item = currentItem();
+  updateProgress();
+  attempts = 0; answered = false;
+  screenEl.innerHTML = teachBlocks(item) +
+    (item.kind === 'sort' ? sortMarkup(item) : mcqMarkup(item)) +
+    '<div id="fb"></div>' +
+    '<div class="nav-row"><span class="attempt-count" id="ac"></span>' +
+    '<button class="btn" id="bn" onclick="next()" disabled>Next question</button></div>';
+  window.scrollTo(0, 0);
+}
+
+/* ---- multiple choice ---- */
+
+var LETTERS = 'ABCD';
+
+function mcqMarkup(item){
+  var html = item.sentence ? '<div class="sentence">' + item.sentence + '</div>' : '';
+  html += '<p class="question-text">' + item.question + '</p><div class="options">';
+  for (var i = 0; i < item.options.length; i++){
+    html += '<button class="option-btn" onclick="choose(' + i + ')">' +
+      '<span class="opt-letter">' + LETTERS.charAt(i) + '</span>' +
+      '<span>' + item.options[i] + '</span></button>';
+  }
+  return html + '</div>';
+}
+
+function choose(i){
+  if (answered) return;
+  var item = currentItem();
+  attempts++;
+  var opts = document.querySelectorAll('.option-btn');
+  var k;
+  if (i === item.correct){
+    answered = true;
+    for (k = 0; k < opts.length; k++){
+      opts[k].disabled = true;
+      opts[k].className = 'option-btn ' + (k === i ? 'correct' : 'dimmed');
+    }
+    el('fb').innerHTML = '<div class="feedback-box fb-correct"><strong>Correct</strong>' +
+      item.explanations[i] + '</div>';
+    skillScores[item.skill].push(attempts === 1 ? 1 : 0);
+    el('bn').disabled = false;
+    el('ac').innerHTML = '';
+  } else {
+    opts[i].className = 'option-btn wrong';
+    opts[i].disabled = true;
+    el('fb').innerHTML = '<div class="feedback-box fb-wrong"><strong>Not that one &mdash; try again</strong>' +
+      item.explanations[i] + '</div>';
+    el('ac').innerHTML = 'Try ' + attempts + '. Read the hint, then pick again.';
+  }
+}
+
+/* ---- word-job sorter ---- */
+
+function sortMarkup(item){
+  sortState = [];
+  var html = '<p class="question-text">' + item.prompt + '</p>' +
+    '<div class="sentence">' + item.sentence + '</div><div class="sorter">';
+  for (var ti = 0; ti < item.targets.length; ti++){
+    sortState.push({ done: false, firstTry: true });
+    var t = item.targets[ti];
+    html += '<div class="sort-row" id="row' + ti + '">' +
+      '<div class="sort-head"><span class="sort-word">' + t.word + '</span>' +
+      '<span class="sort-tick" id="tick' + ti + '" hidden>&#10003; ' + item.jobs[t.job] + '</span></div>' +
+      '<div class="job-row">';
+    for (var ji = 0; ji < item.jobs.length; ji++){
+      html += '<button class="job-btn" id="j' + ti + '_' + ji + '" onclick="pickJob(' + ti + ',' + ji + ')">' +
+        item.jobs[ji] + '</button>';
+    }
+    html += '</div><div class="sort-hint" id="hint' + ti + '" hidden></div></div>';
+  }
+  return html + '</div>';
+}
+
+function pickJob(ti, ji){
+  var item = currentItem();
+  if (sortState[ti].done) return;
+  var target = item.targets[ti];
+  var btn = el('j' + ti + '_' + ji);
+  if (ji === target.job){
+    sortState[ti].done = true;
+    btn.className = 'job-btn picked-ok';
+    for (var k = 0; k < item.jobs.length; k++){ el('j' + ti + '_' + k).disabled = true; }
+    el('row' + ti).className = 'sort-row done';
+    el('tick' + ti).hidden = false;
+    el('hint' + ti).hidden = true;
+    var allDone = true;
+    for (var s = 0; s < sortState.length; s++){ if (!sortState[s].done) allDone = false; }
+    if (allDone) finishSort();
+  } else {
+    sortState[ti].firstTry = false;
+    btn.className = 'job-btn picked-no';
+    btn.disabled = true;
+    var hint = el('hint' + ti);
+    hint.innerHTML = target.hints[ji] || 'Not that one. Think about what this word does in the sentence.';
+    hint.hidden = false;
+  }
+}
+
+function finishSort(){
+  var item = currentItem();
+  answered = true;
+  var allFirst = true;
+  for (var s = 0; s < sortState.length; s++){ if (!sortState[s].firstTry) allFirst = false; }
+  skillScores[item.skill].push(allFirst ? 1 : 0);
+  el('fb').innerHTML = '<div class="feedback-box fb-correct"><strong>All done</strong>' + item.done + '</div>';
+  el('bn').disabled = false;
+  el('ac').innerHTML = '';
+}
+
+/* ---- navigation + completion ---- */
+
+function next(){
+  itemIndex++;
+  if (itemIndex >= currentPart().items.length){ renderComplete(); return; }
+  renderItem();
+}
+
+function renderComplete(){
+  var total = 0, first = 0, k, j, arr;
+  for (k in skillScores){
+    if (!skillScores.hasOwnProperty(k)) continue;
+    arr = skillScores[k];
+    for (j = 0; j < arr.length; j++){ total++; first += arr[j]; }
+  }
+  var pct = total ? Math.round((first / total) * 100) : 0;
+  var colour = pct >= 80 ? 'var(--ok)' : (pct >= 60 ? 'var(--warn)' : 'var(--no)');
+
+  var saved = loadProgress();
+  var prev = saved['part' + partIndex];
+  if (prev === undefined || pct > prev){ saved['part' + partIndex] = pct; saveProgress(saved); }
+
+  var skills = currentPart().skills, rows = '';
+  for (k = 0; k < skills.length; k++){
+    arr = skillScores[k] || [];
+    var got = 0;
+    for (j = 0; j < arr.length; j++){ got += arr[j]; }
+    var p = arr.length ? Math.round(got / arr.length * 100) : 0;
+    var cls = p >= 80 ? 'sum-ok' : (p >= 60 ? 'sum-warn' : 'sum-bad');
+    rows += '<div class="skill-row-sum"><span class="skill-dot"></span>' +
+      '<span class="sum-label">' + skills[k] + '</span>' +
+      '<span class="sum-score ' + cls + '">' + got + '/' + arr.length + '</span></div>';
+  }
+
+  var more = (partIndex < PARTS.length - 1)
+    ? '<button class="btn" onclick="startPart(' + (partIndex + 1) + ')">Start part ' + (partIndex + 2) + '</button>'
+    : '';
+
+  screenEl.innerHTML =
+    '<div class="completion">' +
+      '<div class="score-ring" style="border-color:' + colour + '">' +
+        '<span class="big" style="color:' + colour + '">' + pct + '%</span>' +
+        '<span class="small">first try</span></div>' +
+      '<h2>Part ' + (partIndex + 1) + ' finished</h2>' +
+      '<p class="sub">' + first + ' of ' + total + ' right on the first try.</p>' +
+      '<div class="skill-summary">' + rows + '</div>' +
+      '<div class="done-actions">' + more +
+        '<button class="btn btn-quiet" onclick="startPart(' + partIndex + ')">Practise this part again</button>' +
+        '<button class="btn btn-quiet" onclick="renderStart()">All parts</button>' +
+      '</div>' +
+    '</div>';
+  el('progressFill').style.width = '100%';
+  el('progressText').innerHTML = 'Part ' + (partIndex + 1) + ' complete';
+  el('sectionLabel').innerHTML = '';
+  window.scrollTo(0, 0);
+}
+
+renderStart();
+</script>
+</body>
+</html>
